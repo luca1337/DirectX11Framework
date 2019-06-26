@@ -40,6 +40,10 @@ public:
 	std::shared_ptr<VertexShader> skymap_vertex_shader;
 	std::shared_ptr<PixelShader> skymap_pixel_shader;
 
+	// COLLIDER SHADERS
+	std::shared_ptr<VertexShader> collider_vertex_shader;
+	std::shared_ptr<PixelShader> collider_pixel_shader;
+
 	std::unique_ptr<GPUConstBuffer> lights_buffer;
 
 	std::unique_ptr<GPUConstBuffer> lights_properties_buffer;

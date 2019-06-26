@@ -91,6 +91,10 @@ void Graphics::Initialize(std::string title, unsigned width, unsigned height, fl
 	ShaderManager::CreateAndAddVertexShaderResource(ShaderLayoutDesc::Vertex, "skydome_vertex", skymap_vs, sizeof(skymap_vs), ShaderLayoutDesc::v_layout_size);
 	ShaderManager::CreateAndAddPixelShaderResource("skydome_pixel", skymap_ps, sizeof(skymap_ps));
 
+	// add collider shaders
+	ShaderManager::CreateAndAddVertexShaderResource(ShaderLayoutDesc::Vertex, "collider_vertex", collider_vertex, sizeof(collider_vertex), ShaderLayoutDesc::v_layout_size);
+	ShaderManager::CreateAndAddPixelShaderResource("collider_pixel", collider_pixel, sizeof(collider_pixel));
+
 	// add our basics vertex and pixel shaders
 	ShaderManager::CreateAndAddVertexShaderResource(ShaderLayoutDesc::VertexNormalUvTangentBitangent, "basic_vertex", vs001, sizeof(vs001), ShaderLayoutDesc::vnutb_layout_size);
 	ShaderManager::CreateAndAddPixelShaderResource("basic_pixel", ps001, sizeof(ps001));

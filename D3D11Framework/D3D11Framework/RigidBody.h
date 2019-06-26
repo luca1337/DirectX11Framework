@@ -15,7 +15,7 @@ class RigidBody : public Component
 {
 public:
 	RigidBody(Actor& owner, float mass, float static_friction, float dynamic_friction, float restitution);
-	std::shared_ptr<physx::PxBoxGeometry> CreateRigidBodyBoxGeometry(float extent_x, float extent_y, float extent_z);
+	std::shared_ptr<physx::PxBoxGeometry> CreateRigidBodyBoxGeometry();
 	std::shared_ptr<physx::PxSphereGeometry> CreateRigidBodySphereGeometry(float radius);
 
 	physx::PxShape* CreateShapeAndAttachGeometry(std::shared_ptr<physx::PxGeometry> geometry);
@@ -27,7 +27,7 @@ public:
 	void SetKinematic(bool is_kinematic);
 	void SetTrigger(bool is_trigger);
 	void SetUseGravity(bool disable_gravity = false);
-	void SetRigidBodyCCD(eCollisionDetectionType collision_type, bool use_ccd);
+	void SetRigidBodyCCD(bool use_ccd);
 
 	static unsigned int Type;
 

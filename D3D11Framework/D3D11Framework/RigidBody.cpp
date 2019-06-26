@@ -21,9 +21,9 @@ RigidBody::RigidBody(Actor& owner, float mass, float static_friction, float dyna
 	this->restitution = restitution;
 }
 
-std::shared_ptr<physx::PxBoxGeometry> RigidBody::CreateRigidBodyBoxGeometry(float extent_x, float extent_y, float extent_z)
+std::shared_ptr<physx::PxBoxGeometry> RigidBody::CreateRigidBodyBoxGeometry()
 {
-	std::shared_ptr<physx::PxBoxGeometry> box_geometry = std::make_shared<physx::PxBoxGeometry>(extent_x, extent_y, extent_z);
+	std::shared_ptr<physx::PxBoxGeometry> box_geometry = std::make_shared<physx::PxBoxGeometry>(physx::PxVec3(owner.transform->scale.x, owner.transform->scale.y, owner.transform->scale.z) * 0.5f);
 	return box_geometry;
 }
 
@@ -102,13 +102,9 @@ void RigidBody::SetUseGravity(bool disable_gravity)
 	shape->getActor()->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, disable_gravity);
 }
 
-void RigidBody::SetRigidBodyCCD(eCollisionDetectionType collision_type, bool use_ccd)
+void RigidBody::SetRigidBodyCCD(bool use_ccd)
 {
-	if (collision_type == eCollisionDetectionType::CONTINUOUS)
-	{
-		d3d_engine::Physix::Get().GetPxSceneDesc()->flags |= physx::PxSceneFlag::eENABLE_CCD;
-		body_dynamic->setRigidBodyFlag(physx::PxRigidBodyFlag::eENABLE_CCD, use_ccd);
-	}
+	body_dynamic->setRigidBodyFlag(physx::PxRigidBodyFlag::eENABLE_CCD, use_ccd);
 }
 
 void RigidBody::Tick(float delta_time)

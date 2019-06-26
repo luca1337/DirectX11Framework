@@ -40,6 +40,7 @@ void d3d_engine::Physix::InitPhysix()
 	scene_desc->cpuDispatcher = dispatcher;
 	scene_desc->simulationEventCallback = evt;
 	scene_desc->filterShader = FooShader;
+	scene_desc->flags |= physx::PxSceneFlag::eENABLE_CCD;
 
 	scene = physics->createScene(*scene_desc);
 	if (!scene)

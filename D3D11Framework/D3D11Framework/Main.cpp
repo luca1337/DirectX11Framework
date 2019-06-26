@@ -119,7 +119,7 @@ int main(int argc, char** argv)
 
 	// RigidBody component
 	std::shared_ptr<RigidBody> rigid_body = std::make_shared<RigidBody>(*player00.get(), 1.0f, 1.0f, 0.1f, 1.0f);
-	auto geometry = rigid_body->CreateRigidBodyBoxGeometry(player00->transform->scale.x - 150, player00->transform->scale.y, player00->transform->scale.z - 150);
+	auto geometry = rigid_body->CreateRigidBodyBoxGeometry();
 	auto shape = rigid_body->CreateShapeAndAttachGeometry(geometry);
 	rigid_body->CreateStaticBodyAndAttachShape(shape);
 	player00->AddComponent<RigidBody>(rigid_body);
@@ -129,7 +129,7 @@ int main(int argc, char** argv)
 
 	// create another player
 	std::shared_ptr<Player> player01 = std::make_shared<Player>("Assets/Models/cube.txt");
-	player01->transform->location = { 0.0f, 10.0f, 60.0f };
+	player01->transform->location = { -10.0f, 40.0f, 60.0f };
 	player01->transform->rotation = { 0.0f, 0.0f, 0.0f };
 	player01->transform->scale = { 10.0f, 5.0f, 7.0f };
 
@@ -138,8 +138,8 @@ int main(int argc, char** argv)
 	renderer01->SetNormal("abstract_n");
 
 	// RigidBody component
-	std::shared_ptr<RigidBody> rigid_body01 = std::make_shared<RigidBody>(*player01.get(), 1.0f, 1.0f, 0.1f, 1.0f);
-	auto geometry01 = rigid_body01->CreateRigidBodyBoxGeometry(player01->transform->scale.x, player01->transform->scale.y - 3, player01->transform->scale.z);
+	std::shared_ptr<RigidBody> rigid_body01 = std::make_shared<RigidBody>(*player01.get(), 1.0f, 4.0f, 0.0f, 0.0f);
+	auto geometry01 = rigid_body01->CreateRigidBodyBoxGeometry(player01->transform->scale.x, player01->transform->scale.y, player01->transform->scale.z);
 	auto shape01 = rigid_body01->CreateShapeAndAttachGeometry(geometry01);
 	rigid_body01->CreateDynamicBodyAndAttachShape(shape01);
 	player01->AddComponent<RigidBody>(rigid_body01);
@@ -170,8 +170,7 @@ int main(int argc, char** argv)
 	auto geometry02 = rigid_body02->CreateRigidBodySphereGeometry(5.0f);
 	auto shape02 = rigid_body02->CreateShapeAndAttachGeometry(geometry02);
 	rigid_body02->CreateDynamicBodyAndAttachShape(shape02);
-	rigid_body02->SetUseGravity(true);
-	rigid_body02->SetRigidBodyCCD(eCollisionDetectionType::CONTINUOUS, true);
+	rigid_body02->SetUseGravity(false);
 	player02->AddComponent<RigidBody>(rigid_body02);
 
 	world.SpawnActor(player02);
@@ -206,7 +205,6 @@ int main(int argc, char** argv)
 		auto shape03 = rigid_body03->CreateShapeAndAttachGeometry(geometry03);
 		rigid_body03->CreateDynamicBodyAndAttachShape(shape03);
 		rigid_body03->SetUseGravity(false);
-		rigid_body02->SetRigidBodyCCD(eCollisionDetectionType::CONTINUOUS, true);
 		shapes[i]->AddComponent(rigid_body03);
 
 		start_x += move_offset;
@@ -239,7 +237,7 @@ int main(int argc, char** argv)
 
 		if (state.IsKeyDown(DirectX::Keyboard::Keys::H))
 		{
-			rigid_body02->AddForce({ 0.0f, 0.0f, 100.0f }, physx::PxForceMode::eIMPULSE);
+			rigid_body02->AddForce({ 0.0f, 0.0f, 100.0f }, physx::PxForceMode::eFORCE);
 		}
 
 		if (state.IsKeyDown(DirectX::Keyboard::Keys::W))
