@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="ShaderLayoutDesc.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -183,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Adapter.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Bytecode.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
@@ -221,6 +224,7 @@
     <ClInclude Include="ShaderLayoutDesc.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SkyDome.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />

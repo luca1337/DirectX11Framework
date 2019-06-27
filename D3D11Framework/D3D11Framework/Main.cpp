@@ -131,7 +131,7 @@ int main(int argc, char** argv)
 	std::shared_ptr<Player> player01 = std::make_shared<Player>("Assets/Models/cube.txt");
 	player01->transform->location = { -10.0f, 40.0f, 60.0f };
 	player01->transform->rotation = { 0.0f, 0.0f, 0.0f };
-	player01->transform->scale = { 10.0f, 5.0f, 7.0f };
+	player01->transform->scale = { 10.0f, 15.0f, 7.0f };
 
 	auto renderer01 = player01->GetComponent<MeshRenderer>();
 	renderer01->SetAlbedo("abstract_a");
@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 
 	// RigidBody component
 	std::shared_ptr<RigidBody> rigid_body01 = std::make_shared<RigidBody>(*player01.get(), 1.0f, 4.0f, 0.0f, 0.0f);
-	auto geometry01 = rigid_body01->CreateRigidBodyBoxGeometry(player01->transform->scale.x, player01->transform->scale.y, player01->transform->scale.z);
+	auto geometry01 = rigid_body01->CreateRigidBodyBoxGeometry();
 	auto shape01 = rigid_body01->CreateShapeAndAttachGeometry(geometry01);
 	rigid_body01->CreateDynamicBodyAndAttachShape(shape01);
 	player01->AddComponent<RigidBody>(rigid_body01);

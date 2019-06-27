@@ -45,4 +45,10 @@ private:
 	float static_friction;
 	float dynamic_friction;
 	float restitution;
+
+	float roll;
+	float pitch;
+	float yaw;
+	float angle;
+	physx::PxVec3 axis;
 };

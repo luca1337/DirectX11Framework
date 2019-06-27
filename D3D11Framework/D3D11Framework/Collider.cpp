@@ -1,5 +1,12 @@
 #include "Collider.h"
 
+#include "Mesh.h"
+#include "Actor.h"
+#include "ShaderManager.h"
+#include "PixelShader.h"
+#include "VertexShader.h"
+#include "Engine.h"
+
 Collider::Collider(Actor& owner, const DirectX::SimpleMath::Vector3 & size)
 {
 	collider_mesh = std::make_shared<Mesh>("Assets/Models/cube.txt");

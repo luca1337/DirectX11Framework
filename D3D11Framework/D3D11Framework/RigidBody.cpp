@@ -2,8 +2,36 @@
 #include "Physix.h"
 #include "Actor.h"
 #include "Transform.h"
+#include <cmath>
 
 unsigned int RigidBody::Type = 0;
+
+static void QuatToEuler(const physx::PxQuat& quat, float& rotx, float& roty, float& rotz)
+{
+	double sqw;
+	double sqx;
+	double sqy;
+	double sqz;
+
+	double rotxrad;
+	double rotyrad;
+	double rotzrad;
+
+	sqw = quat.w * quat.w;
+	sqx = quat.x * quat.x;
+	sqy = quat.y * quat.y;
+	sqz = quat.z * quat.z;
+
+	rotxrad = (double)atan2l(2.0 * (quat.y * quat.z + quat.x * quat.w), (-sqx - sqy + sqz + sqw));
+	rotyrad = (double)asinl(-2.0 * (quat.x * quat.z - quat.y * quat.w));
+	rotzrad = (double)atan2l(2.0 * (quat.x * quat.y + quat.z * quat.w), (sqx - sqy - sqz + sqw));
+
+	rotx = rotxrad;
+	roty = rotyrad;
+	rotz = rotzrad;
+
+	return;
+}
 
 RigidBody::RigidBody(Actor& owner, float mass, float static_friction, float dynamic_friction, float restitution) : owner(owner)
 {
@@ -113,7 +141,10 @@ void RigidBody::Tick(float delta_time)
 	owner.transform->location.y = current_body->getGlobalPose().p.y;
 	owner.transform->location.z = current_body->getGlobalPose().p.z;
 
-	owner.transform->rotation.x = current_body->getGlobalPose().q.x;
-	owner.transform->rotation.y = current_body->getGlobalPose().q.y;
-	owner.transform->rotation.z = current_body->getGlobalPose().q.z;
+	// Convert from quaternion to euler angles
+	QuatToEuler(current_body->getGlobalPose().q, this->roll, this->pitch, this->yaw);
+	
+	owner.transform->rotation.x = this->roll;
+	owner.transform->rotation.y = this->pitch;
+	owner.transform->rotation.z = this->yaw;
 }
