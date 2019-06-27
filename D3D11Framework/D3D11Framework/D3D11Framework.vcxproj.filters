@@ -65,6 +65,12 @@
     <Filter Include="Engine\Headers\Physics">
       <UniqueIdentifier>{d60bf631-6701-4e0e-bbf9-61fff71df427}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Headers\Shapes">
+      <UniqueIdentifier>{b19e2c11-3e23-4700-9e0e-3656918e4858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Shapes">
+      <UniqueIdentifier>{7455be06-c5e5-4e6e-98b2-2bfe481c36bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -162,6 +168,9 @@
     </ClCompile>
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Engine\Source\Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="SphereCollider.h">
       <Filter>Engine\Headers\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Engine\Headers\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

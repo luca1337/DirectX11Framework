@@ -15,7 +15,7 @@ class Mesh;
 class Collider : public Component
 {
 public:
-	Collider(Actor& owner, const DirectX::SimpleMath::Vector3& size);
+	Collider(Actor& owner);
 	Collider(Actor& owner, const float radius);
 
 	static unsigned int Type;

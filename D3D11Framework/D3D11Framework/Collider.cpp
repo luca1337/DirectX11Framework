@@ -7,10 +7,14 @@
 #include "VertexShader.h"
 #include "Engine.h"
 
-Collider::Collider(Actor& owner, const DirectX::SimpleMath::Vector3 & size)
+unsigned int Collider::Type = 0;
+
+Collider::Collider(Actor& owner)
 {
 	collider_mesh = std::make_shared<Mesh>("Assets/Models/cube.txt");
-	collider_mesh->Scale(owner.transform->scale.x, owner.transform->scale.y, owner.transform->location.z);
+	collider_mesh->Scale(owner.transform->scale.x -1, owner.transform->scale.y - 1, owner.transform->scale.z - 1);
+	collider_mesh->SetPosition(owner.transform->location);
+	collider_mesh->SetRotation(owner.transform->rotation.x, owner.transform->rotation.y, owner.transform->rotation.z);
 }
 
 Collider::Collider(Actor& owner, const float radius)
@@ -30,8 +34,8 @@ void Collider::Tick(float delta_time)
 
 	Engine::Singleton().GetDxDevice()->TurnOffWireframeRendering();
 
-	ShaderManager::GetVertexShaderResourceFromMemory("basic_vs")->Bind();
-	ShaderManager::GetPixelShaderResourceFromMemory("basic_ps")->Bind();
+	ShaderManager::GetVertexShaderResourceFromMemory("basic_vertex")->Bind();
+	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();
 }
 
 Collider::~Collider()

@@ -29,6 +29,8 @@
 
 #include "TextureManager.h"
 
+#include "Cube.h"
+
 int main(int argc, char** argv)
 {
 	// Init engine
@@ -211,6 +213,10 @@ int main(int argc, char** argv)
 
 		world.SpawnActor(shapes[i]);
 	}
+
+	// at least a cube
+	auto cube00 = std::make_shared<Cube>(SimpleMath::Vector3(15.0f, 5.0f, 7.0f), SimpleMath::Vector3(50.0f, 10.0f, 50.0f), SimpleMath::Vector3(3.0f, 0.4f, 1.3f));
+	world.SpawnActor(cube00);
 	
 	// Keyboard tracking
 	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();

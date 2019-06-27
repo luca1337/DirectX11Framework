@@ -12,7 +12,7 @@ vs_out main(vs_in IN)
 {
     vs_out OUT;
 
-    OUT.out_pixel = float4(0.0f, 1.0f, 0.0f, 1.0f);
+    OUT.out_pixel = float4(1.0f, 0.0f, 0.0f, 1.0f);
 
     return OUT;
 }
