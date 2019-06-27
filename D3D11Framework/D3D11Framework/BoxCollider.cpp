@@ -18,5 +18,5 @@ void BoxCollider::Tick(float delta_time)
 	// Call base tick
 	Collider::Tick(delta_time);
 
-	//.. logic
+	//.. logic if needed
 }

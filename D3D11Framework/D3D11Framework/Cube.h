@@ -14,7 +14,7 @@ class MeshRenderer;
 class Cube : public Actor
 {
 public:
-	Cube(const SimpleMath::Vector3& size, const SimpleMath::Vector3& position, const SimpleMath::Vector3& rotation);
+	Cube(const SimpleMath::Vector3& size);
 
 private:
 	std::shared_ptr<MeshRenderer> cube_mesh;

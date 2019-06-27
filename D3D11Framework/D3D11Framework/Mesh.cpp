@@ -46,6 +46,21 @@ void Mesh::SetRotation(float x, float y, float z)
 	rotation_v = SimpleMath::Vector3(x, y, z);
 }
 
+void Mesh::SetRotation(const SimpleMath::Vector3& rot)
+{
+	rotation_v = rot;
+}
+
+void Mesh::SetScale(float x, float y, float z)
+{
+	scale_v = SimpleMath::Vector3(x, y, z);
+}
+
+void Mesh::SetScale(const SimpleMath::Vector3& scale)
+{
+	scale_v = scale;
+}
+
 void Mesh::Translate(const SimpleMath::Vector3& pos)
 {
 	location_v.x += pos.x;

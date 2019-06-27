@@ -215,7 +215,8 @@ int main(int argc, char** argv)
 	}
 
 	// at least a cube
-	auto cube00 = std::make_shared<Cube>(SimpleMath::Vector3(15.0f, 5.0f, 7.0f), SimpleMath::Vector3(50.0f, 10.0f, 50.0f), SimpleMath::Vector3(3.0f, 0.4f, 1.3f));
+	auto cube00 = std::make_shared<Cube>(SimpleMath::Vector3(15.0f, 5.0f, 7.0f));
+	cube00->transform->location = { -30, 20, 10 };
 	world.SpawnActor(cube00);
 	
 	// Keyboard tracking

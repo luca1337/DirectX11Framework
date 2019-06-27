@@ -26,8 +26,7 @@ public:
 
 protected:
 
-	physx::PxVec3 size;
-	float radius;
+	Actor& owner;
 	
 	// Physx variables
 	std::shared_ptr<physx::PxBoxGeometry> box_geometry;

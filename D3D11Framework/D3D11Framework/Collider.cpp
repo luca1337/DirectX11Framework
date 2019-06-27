@@ -9,15 +9,15 @@
 
 unsigned int Collider::Type = 0;
 
-Collider::Collider(Actor& owner)
+Collider::Collider(Actor& owner) : owner(owner)
 {
 	collider_mesh = std::make_shared<Mesh>("Assets/Models/cube.txt");
-	collider_mesh->Scale(owner.transform->scale.x -1, owner.transform->scale.y - 1, owner.transform->scale.z - 1);
+	collider_mesh->SetScale(owner.transform->scale);
 	collider_mesh->SetPosition(owner.transform->location);
-	collider_mesh->SetRotation(owner.transform->rotation.x, owner.transform->rotation.y, owner.transform->rotation.z);
+	collider_mesh->SetRotation(owner.transform->rotation);
 }
 
-Collider::Collider(Actor& owner, const float radius)
+Collider::Collider(Actor& owner, const float radius) : owner(owner)
 {
 	collider_mesh = std::make_shared<Mesh>("Assets/Models/sphere.txt");
 	collider_mesh->Scale(owner.transform->scale.x, owner.transform->scale.y, owner.transform->location.z);
@@ -29,6 +29,10 @@ void Collider::Tick(float delta_time)
 
 	ShaderManager::GetVertexShaderResourceFromMemory("collider_vertex")->Bind();
 	ShaderManager::GetPixelShaderResourceFromMemory("collider_pixel")->Bind();
+
+	collider_mesh->SetScale(owner.transform->scale);
+	collider_mesh->SetPosition(owner.transform->location);
+	collider_mesh->SetRotation(owner.transform->rotation);
 
 	collider_mesh->Draw(nullptr, nullptr, nullptr);
 

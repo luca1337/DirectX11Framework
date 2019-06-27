@@ -25,6 +25,12 @@ public:
 
 	void SetRotation(float x, float y, float z);
 
+	void SetRotation(const SimpleMath::Vector3& rot);
+
+	void SetScale(float x, float y, float z);
+
+	void SetScale(const SimpleMath::Vector3& scale);
+
 	void Translate(const SimpleMath::Vector3& pos);
 
 	void Translate(float x, float y, float z);
