@@ -20,7 +20,7 @@ void MeshRenderer::Tick(float delta_time)
 {
 	// set the transform
 	mesh->location_v = owner.transform->location;
-	mesh->rotation_v = owner.transform->rotation;
+	mesh->rotation_q = owner.transform->rotation;
 	mesh->scale_v = owner.transform->scale;
 
 	mesh->Draw(albedo, normal_map, material);

@@ -192,10 +192,8 @@ void RigidBody::Tick(float delta_time)
 	owner.transform->location.y = current_body->getGlobalPose().p.y;
 	owner.transform->location.z = current_body->getGlobalPose().p.z;
 
-	// Convert from quaternion to euler angles
-	QuatToEuler(current_body->getGlobalPose().q, this->roll, this->pitch, this->yaw);
-
-	owner.transform->rotation.x = this->roll;
-	owner.transform->rotation.y = this->pitch;
-	owner.transform->rotation.z = this->yaw;
+	owner.transform->rotation.x = current_body->getGlobalPose().q.x;
+	owner.transform->rotation.y = current_body->getGlobalPose().q.y;
+	owner.transform->rotation.z = current_body->getGlobalPose().q.z;
+	owner.transform->rotation.w = current_body->getGlobalPose().q.w;
 }

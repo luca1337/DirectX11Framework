@@ -14,12 +14,12 @@ public:
 	static unsigned int Type;
 
 	SimpleMath::Vector3 location;
-	SimpleMath::Vector3 rotation;
+	SimpleMath::Quaternion rotation;
 	SimpleMath::Vector3 scale;
 
 	void Translate(const SimpleMath::Vector3& axis);
 	void Translate(float x, float y, float z);
 
-	void Rotate(const SimpleMath::Vector3& axis);
+	void Rotate(const SimpleMath::Vector3& eulers);
 	void Rotate(float x, float y, float z);
 };

@@ -23,16 +23,12 @@ void Transform::Translate(float x, float y, float z)
 	location.z += z;
 }
 
-void Transform::Rotate(const SimpleMath::Vector3 & axis)
+void Transform::Rotate(const SimpleMath::Vector3 & eulers)
 {
-	rotation.x += axis.x;
-	rotation.y += axis.y;
-	rotation.z += axis.z;
+	// TODO: build rotation using Quaternions
 }
 
 void Transform::Rotate(float x, float y, float z)
 {
-	rotation.x += x;
-	rotation.y += y;
-	rotation.z += z;
+	// TODO: build rotation using Quaternions
 }

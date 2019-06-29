@@ -46,7 +46,7 @@ public:
 	void Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal_map, std::shared_ptr<Material> material);
 
 	SimpleMath::Vector3 location_v;
-	SimpleMath::Vector3 rotation_v;
+	SimpleMath::Quaternion rotation_q;
 	SimpleMath::Vector3 scale_v;
 private:
 	void AddBuffer(UINT size, UINT stride, void* data);

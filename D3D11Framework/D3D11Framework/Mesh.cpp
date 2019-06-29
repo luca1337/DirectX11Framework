@@ -27,7 +27,7 @@ Mesh::Mesh(std::string file_path)
 	material_buffer = std::make_shared<GPUConstBuffer>(Engine::Singleton().GetDxDevice(), static_cast<UINT>(sizeof(Material)));
 
 	location_v = SimpleMath::Vector3();
-	rotation_v = SimpleMath::Vector3();
+	rotation_q = SimpleMath::Quaternion();
 	scale_v = SimpleMath::Vector3(1.0f, 1.0f, 1.0f);
 }
 
@@ -41,14 +41,14 @@ void Mesh::SetPosition(float x, float y, float z)
 	location_v = SimpleMath::Vector3(x, y, z);
 }
 
-void Mesh::SetRotation(float x, float y, float z)
+void Mesh::SetRotation(const SimpleMath::Vector3& eulers)
 {
-	rotation_v = SimpleMath::Vector3(x, y, z);
+	rotation_q = SimpleMath::Quaternion::CreateFromYawPitchRoll(eulers.x, eulers.y, eulers.z);
 }
 
-void Mesh::SetRotation(const SimpleMath::Vector3& rot)
+void Mesh::SetRotation(float x, float y, float z)
 {
-	rotation_v = rot;
+	rotation_q = SimpleMath::Quaternion::CreateFromYawPitchRoll(x, y, z);;
 }
 
 void Mesh::SetScale(float x, float y, float z)
@@ -84,16 +84,12 @@ void Mesh::Scale(float x, float y, float z)
 
 void Mesh::Rotate(const SimpleMath::Vector3& rot)
 {
-	rotation_v.x += rot.x;
-	rotation_v.y += rot.y;
-	rotation_v.z += rot.z;
+	// TODO: build rotation from quaternion starting by eulers
 }
 
 void Mesh::Rotate(float x, float y, float z)
 {
-	rotation_v.x += x;
-	rotation_v.y += y;
-	rotation_v.z += z;
+	// TODO: build rotation from quaternion starting by eulers
 }
 
 const SimpleMath::Vector3& Mesh::GetPosition() const
@@ -166,7 +162,7 @@ void Mesh::UpdateMatrix()
 {
 	// set base values for matrix mult
 	translation = DirectX::XMMatrixTranslation(location_v.x, location_v.y, location_v.z);
-	rotation = DirectX::XMMatrixRotationRollPitchYaw(rotation_v.x, rotation_v.y, rotation_v.z);
+	rotation = DirectX::XMMatrixRotationQuaternion(rotation_q);
 	scale = DirectX::XMMatrixScaling(scale_v.x, scale_v.y, scale_v.z);
 
 	// correct the mvp and build it up
