@@ -2,7 +2,8 @@
 #include "Physix.h"
 #include "Actor.h"
 #include "Transform.h"
-#include <cmath>
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
 unsigned int RigidBody::Type = 0;
 
@@ -33,72 +34,106 @@ static void QuatToEuler(const physx::PxQuat& quat, float& rotx, float& roty, flo
 	return;
 }
 
-RigidBody::RigidBody(Actor& owner, float mass, float static_friction, float dynamic_friction, float restitution) : owner(owner)
+static physx::PxQuat EulerToQuat(double yaw, double pitch, double roll) // yaw (Z), pitch (Y), roll (X)
 {
-	d3d_engine::Physix& physix = d3d_engine::Physix::Get();
+	// Abbreviations for the various angular functions
+	double cy = cos(yaw * 0.5);
+	double sy = sin(yaw * 0.5);
+	double cp = cos(pitch * 0.5);
+	double sp = sin(pitch * 0.5);
+	double cr = cos(roll * 0.5);
+	double sr = sin(roll * 0.5);
 
-	material = physix.GetPxPhysics()->createMaterial(static_friction, dynamic_friction, restitution);
-	if (!material)
-	{
-		throw std::exception("unable to create material");
-	}
+	physx::PxQuat q;
+	q.w = cy * cp * cr + sy * sp * sr;
+	q.x = cy * cp * sr - sy * sp * cr;
+	q.y = sy * cp * sr + cy * sp * cr;
+	q.z = sy * cp * cr - cy * sp * sr;
+	return q;
+}
+
+RigidBody::RigidBody(Actor& owner, float mass, eRigidBodyType rb_type) : owner(owner)
+{
+	// Get PX
+	auto px = d3d_engine::Physix::Get();
 
 	this->mass = mass;
-	this->static_friction = static_friction;
-	this->dynamic_friction = dynamic_friction;
-	this->restitution = restitution;
-}
+	current_type = rb_type;
 
-std::shared_ptr<physx::PxBoxGeometry> RigidBody::CreateRigidBodyBoxGeometry()
-{
-	std::shared_ptr<physx::PxBoxGeometry> box_geometry = std::make_shared<physx::PxBoxGeometry>(physx::PxVec3(owner.transform->scale.x, owner.transform->scale.y, owner.transform->scale.z) * 0.5f);
-	return box_geometry;
-}
-
-std::shared_ptr<physx::PxSphereGeometry> RigidBody::CreateRigidBodySphereGeometry(float radius)
-{
-	std::shared_ptr<physx::PxSphereGeometry> sphere_geometry = std::make_shared<physx::PxSphereGeometry>(radius);
-	return sphere_geometry;
-}
-
-physx::PxShape* RigidBody::CreateShapeAndAttachGeometry(std::shared_ptr<physx::PxGeometry> geometry)
-{
-	shape = d3d_engine::Physix::Get().GetPxPhysics()->createShape(*geometry, *material, true);
-	if (!shape)
+	// Check if collider exists!
+	auto collider = owner.GetComponent<Collider>();
+	if (!collider)
 	{
-		throw std::exception("unable to create shape");
+		throw std::exception("collider not found!");
 	}
-	shape->userData = &owner;
-	return shape;
-}
 
-void RigidBody::CreateDynamicBodyAndAttachShape(physx::PxShape* shape)
-{
-	body_dynamic = d3d_engine::Physix::Get().GetPxPhysics()->createRigidDynamic(physx::PxTransform(owner.transform->location.x, owner.transform->location.y, owner.transform->location.z));
-	if (!body_dynamic)
+	// Select which geometry our collider has
+	if (collider->GetGeometryType() == eGeometryType::BOX)
 	{
-		throw std::exception("unable to create body_dynamic");
+		if (rb_type == eRigidBodyType::DYNAMIC)
+		{
+			body_dynamic = px.GetPxPhysics()->createRigidDynamic(physx::PxTransform(owner.transform->location.x, owner.transform->location.y, owner.transform->location.z));
+			body_dynamic->setMass(mass);
+			body_dynamic->attachShape(*collider->GetShape());
+			current_body = reinterpret_cast<physx::PxRigidBody*>(body_dynamic);
+		}
+		else
+		{
+			body_static = px.GetPxPhysics()->createRigidStatic(physx::PxTransform(owner.transform->location.x, owner.transform->location.y, owner.transform->location.z));
+			body_static->attachShape(*collider->GetShape());
+			current_body = reinterpret_cast<physx::PxRigidBody*>(body_static);
+		}
+
+		if (!current_body)
+		{
+			throw std::exception("unable to create body_dynamic");
+		}
+
+		px.GetPxScene()->addActor(*current_body);
+
+		// Compute geometry tensors space and mass inertia and update them
+		physx::PxBoxGeometry box_g;
+		collider->GetShape()->getBoxGeometry(box_g);
+
+		// calculate density of the shape
+		volume = (box_g.halfExtents.x * box_g.halfExtents.y * box_g.halfExtents.z);
+		density = (mass / volume);
 	}
-	body_dynamic->setMass(mass);
-	body_dynamic->attachShape(*shape);
-
-	d3d_engine::Physix::Get().GetPxScene()->addActor(*body_dynamic);
-
-	current_body = reinterpret_cast<physx::PxRigidBody*>(body_dynamic);
-}
-
-void RigidBody::CreateStaticBodyAndAttachShape(physx::PxShape* shape)
-{
-	body_static = d3d_engine::Physix::Get().GetPxPhysics()->createRigidStatic(physx::PxTransform(owner.transform->location.x, owner.transform->location.y, owner.transform->location.z));
-	if (!body_static)
+	else
 	{
-		throw std::exception("unable to create body_static");
+		if (rb_type == eRigidBodyType::DYNAMIC)
+		{
+			body_dynamic = px.GetPxPhysics()->createRigidDynamic(physx::PxTransform(owner.transform->location.x, owner.transform->location.y, owner.transform->location.z));
+			body_dynamic->setMass(mass);
+			body_dynamic->attachShape(*collider->GetShape());
+			current_body = reinterpret_cast<physx::PxRigidBody*>(body_dynamic);
+		}
+		else
+		{
+			body_static = px.GetPxPhysics()->createRigidStatic(physx::PxTransform(owner.transform->location.x, owner.transform->location.y, owner.transform->location.z));
+			body_static->attachShape(*collider->GetShape());
+			current_body = reinterpret_cast<physx::PxRigidBody*>(body_static);
+		}
+
+		if (!current_body)
+		{
+			throw std::exception("unable to create body_dynamic");
+		}
+
+		px.GetPxScene()->addActor(*current_body);
+
+		// Compute geometry tensors space and mass inertia and update them
+		// Same as the box but we need to extrapolate the density by the radius
+		// which is given by square root of xyz components scale of the transform
+
+		// get geometry
+		physx::PxSphereGeometry sphere_g;
+		collider->GetShape()->getSphereGeometry(sphere_g);
+
+		// calculate density of the shape
+		volume = (4 * 3.14f * pow(sphere_g.radius, 3)) / 3;
+		density = (current_body->getMass() / volume);
 	}
-	body_static->attachShape(*shape);
-
-	d3d_engine::Physix::Get().GetPxScene()->addActor(*body_static);
-
-	current_body = reinterpret_cast<physx::PxRigidBody*>(body_static);
 }
 
 void RigidBody::AddForce(const DirectX::SimpleMath::Vector3 force, physx::PxForceMode::Enum force_mode)
@@ -127,7 +162,7 @@ void RigidBody::SetTrigger(bool is_trigger)
 
 void RigidBody::SetUseGravity(bool disable_gravity)
 {
-	shape->getActor()->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, disable_gravity);
+	current_body->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, disable_gravity);
 }
 
 void RigidBody::SetRigidBodyCCD(bool use_ccd)
@@ -135,15 +170,31 @@ void RigidBody::SetRigidBodyCCD(bool use_ccd)
 	body_dynamic->setRigidBodyFlag(physx::PxRigidBodyFlag::eENABLE_CCD, use_ccd);
 }
 
+void RigidBody::SetRotation(float x, float y, float z)
+{
+	auto new_rot = EulerToQuat(x, y, z);
+
+	body_dynamic->setGlobalPose(physx::PxTransform(body_dynamic->getGlobalPose().p, new_rot));
+}
+
+float RigidBody::GetDensity() const
+{
+	return density;
+}
+
 void RigidBody::Tick(float delta_time)
 {
+	// Update inertia and mass tensors space
+	if (current_type != eRigidBodyType::STATIC)
+		physx::PxRigidBodyExt::updateMassAndInertia(*current_body, density);
+
 	owner.transform->location.x = current_body->getGlobalPose().p.x;
 	owner.transform->location.y = current_body->getGlobalPose().p.y;
 	owner.transform->location.z = current_body->getGlobalPose().p.z;
 
 	// Convert from quaternion to euler angles
 	QuatToEuler(current_body->getGlobalPose().q, this->roll, this->pitch, this->yaw);
-	
+
 	owner.transform->rotation.x = this->roll;
 	owner.transform->rotation.y = this->pitch;
 	owner.transform->rotation.z = this->yaw;

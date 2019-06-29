@@ -172,6 +172,9 @@
     <ClCompile Include="Cube.cpp">
       <Filter>Engine\Source\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Engine\Source\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adapter.h">
@@ -322,6 +325,9 @@
       <Filter>Engine\Headers\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Cube.h">
+      <Filter>Engine\Headers\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
       <Filter>Engine\Headers\Shapes</Filter>
     </ClInclude>
   </ItemGroup>

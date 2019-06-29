@@ -35,17 +35,23 @@ void d3d_engine::Physix::InitPhysix()
 	CustomDispatcher* dispatcher = new CustomDispatcher();
 	CustomSimulationEvent* evt = new CustomSimulationEvent();
 
-	scene_desc = std::make_shared<physx::PxSceneDesc>(physics->getTolerancesScale());
-	scene_desc->gravity = physx::PxVec3(0, -9.81, 0);
-	scene_desc->cpuDispatcher = dispatcher;
-	scene_desc->simulationEventCallback = evt;
-	scene_desc->filterShader = FooShader;
-	scene_desc->flags |= physx::PxSceneFlag::eENABLE_CCD;
+	auto scene_desc = physx::PxSceneDesc(physics->getTolerancesScale());
+	scene_desc.gravity = physx::PxVec3(0, -9.81, 0);
+	scene_desc.cpuDispatcher = dispatcher;
+	scene_desc.simulationEventCallback = evt;
+	scene_desc.filterShader = FooShader;
+	//scene_desc->flags |= physx::PxSceneFlag::eENABLE_CCD;
 
-	scene = physics->createScene(*scene_desc);
+	scene = physics->createScene(scene_desc);
 	if (!scene)
 	{
 		throw std::exception("unable to create scene");
+	}
+
+	material = physics->createMaterial(1.0f, 0.1f, 0.0f);
+	if (!material)
+	{
+		throw std::exception("unable to create material");
 	}
 }
 

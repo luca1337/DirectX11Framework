@@ -29,7 +29,11 @@
 
 #include "TextureManager.h"
 
+#include "BoxCollider.h"
+#include "SphereCollider.h"
+
 #include "Cube.h"
+#include "Sphere.h"
 
 int main(int argc, char** argv)
 {
@@ -102,7 +106,7 @@ int main(int argc, char** argv)
 	std::shared_ptr<Player> player00 = std::make_shared<Player>("Assets/Models/cube.txt");
 	player00->transform->location = { 0.0f, -10.0f, 0.0f };
 	player00->transform->rotation = { 0.0f, 0.0f, 0.0f };
-	player00->transform->scale = { 300.0f, 1.0f, 300.0f };
+	player00->transform->scale = { 300.0f, 5.0f, 300.0f };
 
 	// create a new material
 	auto wood_material = std::make_shared<Material>();
@@ -119,105 +123,40 @@ int main(int argc, char** argv)
 	renderer00->SetNormal("wood_n");
 	renderer00->AssignMaterial(wood_material);
 
+	auto plane_collider = std::make_shared<BoxCollider>(*player00);
+	player00->AddComponent<BoxCollider>(plane_collider);
+
 	// RigidBody component
-	std::shared_ptr<RigidBody> rigid_body = std::make_shared<RigidBody>(*player00.get(), 1.0f, 1.0f, 0.1f, 1.0f);
-	auto geometry = rigid_body->CreateRigidBodyBoxGeometry();
-	auto shape = rigid_body->CreateShapeAndAttachGeometry(geometry);
-	rigid_body->CreateStaticBodyAndAttachShape(shape);
+	auto rigid_body = std::make_shared<RigidBody>(*player00, 10.0f, eRigidBodyType::STATIC);
+	rigid_body->SetUseGravity(true);
 	player00->AddComponent<RigidBody>(rigid_body);
 
 	// spawn first actor
 	world.SpawnActor(player00);
 
-	// create another player
-	std::shared_ptr<Player> player01 = std::make_shared<Player>("Assets/Models/cube.txt");
-	player01->transform->location = { -10.0f, 40.0f, 60.0f };
-	player01->transform->rotation = { 0.0f, 0.0f, 0.0f };
-	player01->transform->scale = { 10.0f, 15.0f, 7.0f };
+	//////////////////// end plane ///////////////////////////////
 
-	auto renderer01 = player01->GetComponent<MeshRenderer>();
-	renderer01->SetAlbedo("abstract_a");
-	renderer01->SetNormal("abstract_n");
+	// CUBE PRIMITIVE CREATION
+	auto cube = std::make_shared<Cube>(SimpleMath::Vector3(5.0f, 5.0f, 5.0f));
+	cube->transform->location.y = 30;
 
 	// RigidBody component
-	std::shared_ptr<RigidBody> rigid_body01 = std::make_shared<RigidBody>(*player01.get(), 1.0f, 4.0f, 0.0f, 0.0f);
-	auto geometry01 = rigid_body01->CreateRigidBodyBoxGeometry();
-	auto shape01 = rigid_body01->CreateShapeAndAttachGeometry(geometry01);
-	rigid_body01->CreateDynamicBodyAndAttachShape(shape01);
-	player01->AddComponent<RigidBody>(rigid_body01);
+	auto cube_rb = std::make_shared<RigidBody>(*cube, 1.0f, eRigidBodyType::DYNAMIC);
+	cube_rb->SetRotation(90, 3, 0);
+	cube->AddComponent<RigidBody>(cube_rb);
 
-	// spawn second actor
-	world.SpawnActor(player01);
+	world.SpawnActor(cube);
 
-	// create a sphere with some component and some material :P
-	std::shared_ptr<Player> player02 = std::make_shared<Player>("Assets/Models/sphere.txt");
-	player02->transform->location = { -15.0f, 10.0f, 30.0f };
-	player02->transform->rotation = { 0.0f, 0.0f, 0.0f };
-	player02->transform->scale = { 5.0f, 5.0f, 5.0f };
+	// SPHERE PRIMITIVE CREATION
+	auto sphere = std::make_shared<Sphere>();
+	sphere->transform->location = { -10.0f, 20.0f, 0.0f };
+	sphere->transform->scale = { 5.0f, 5.0f, 5.0f };
 
-	// create a new material
-	auto plastic_material = std::make_shared<Material>();
-	plastic_material->SetEmissive({ 0.0f, 0.0f, 0.0f, 1.0f });
-	plastic_material->SetAmbient({ 0.3f, 0.0f, 0.0f, 1.0f });
-	plastic_material->SetDiffuse({ 0.3f, 0.01f, 0.23f, 1.0f });
-	plastic_material->SetSpecular({ 0.3f, 0.2f, 0.5f, 1.0f });
-	plastic_material->SetSpecularExponent(72.0f);
+	// RigidBody component
+	auto sphere_rb = std::make_shared<RigidBody>(*sphere, 1.0f, eRigidBodyType::DYNAMIC);
+	sphere->AddComponent<RigidBody>(sphere_rb);
 
-	// set the texture with normal map
-	auto renderer02 = player02->GetComponent<MeshRenderer>();
-	renderer02->AssignMaterial(plastic_material);
-
-	// Add RigidBody
-	std::shared_ptr<RigidBody> rigid_body02 = std::make_shared<RigidBody>(*player02.get(), 1.0f, 1.0f, 0.1f, 0.0f);
-	auto geometry02 = rigid_body02->CreateRigidBodySphereGeometry(5.0f);
-	auto shape02 = rigid_body02->CreateShapeAndAttachGeometry(geometry02);
-	rigid_body02->CreateDynamicBodyAndAttachShape(shape02);
-	rigid_body02->SetUseGravity(false);
-	player02->AddComponent<RigidBody>(rigid_body02);
-
-	world.SpawnActor(player02);
-
-	// create a wall of cubes/spheres to shoot
-	int max = 15;
-	auto shapes = std::vector< std::shared_ptr<Player>>(max);
-
-	float start_x = -30.0f;
-	float start_y = 30.0f;
-	float start_z = 100.0f;
-
-	float move_offset = 10.0f;
-
-	for (int i = 0; i < max; i++)
-	{
-		if (i % 5 == 0)
-		{
-			start_y -= move_offset;
-			start_x = -40.0f;
-		}
-
-		shapes[i] = std::make_shared<Player>("Assets/Models/sphere.txt");
-		shapes[i]->transform->location = { start_x, start_y, start_z };
-		shapes[i]->transform->rotation = {};
-		shapes[i]->transform->scale = { 5.0f, 5.0f, 5.0f };
-
-		shapes[i]->GetComponent<MeshRenderer>()->AssignMaterial(plastic_material);
-		
-		auto rigid_body03 = std::make_shared<RigidBody>(*shapes[i].get(), 1.0f, 1.0f, 0.1f, 0.0f);
-		auto geometry03 = rigid_body03->CreateRigidBodySphereGeometry(5.0f);
-		auto shape03 = rigid_body03->CreateShapeAndAttachGeometry(geometry03);
-		rigid_body03->CreateDynamicBodyAndAttachShape(shape03);
-		rigid_body03->SetUseGravity(false);
-		shapes[i]->AddComponent(rigid_body03);
-
-		start_x += move_offset;
-
-		world.SpawnActor(shapes[i]);
-	}
-
-	// at least a cube
-	auto cube00 = std::make_shared<Cube>(SimpleMath::Vector3(15.0f, 5.0f, 7.0f));
-	cube00->transform->location = { -30, 20, 10 };
-	world.SpawnActor(cube00);
+	world.SpawnActor(sphere);
 	
 	// Keyboard tracking
 	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();
@@ -244,7 +183,7 @@ int main(int argc, char** argv)
 
 		if (state.IsKeyDown(DirectX::Keyboard::Keys::H))
 		{
-			rigid_body02->AddForce({ 0.0f, 0.0f, 100.0f }, physx::PxForceMode::eFORCE);
+			sphere_rb->AddForce({ 100.0f, 0.0f, 0.0f }, physx::PxForceMode::eFORCE);
 		}
 
 		if (state.IsKeyDown(DirectX::Keyboard::Keys::W))

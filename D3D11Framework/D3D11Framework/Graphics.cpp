@@ -133,13 +133,13 @@ void Graphics::Clear()
 	depth_target->Clear();
 
 	delta_time = CalculateDeltaTime();
+
+	d3d_engine::Physix::Get().UpdatePhysx(delta_time);
 }
 
 void Graphics::Present()
 {
 	World::Get().Tick(delta_time);
-
-	d3d_engine::Physix::Get().UpdatePhysx(delta_time);
 
 	window->Present();
 }

@@ -5,7 +5,7 @@
 class SphereCollider : public Collider
 {
 public:
-	SphereCollider(Actor& owner, const float radius);
+	SphereCollider(Actor& owner);
 
 	virtual void Tick(float delta_time) override;
 };

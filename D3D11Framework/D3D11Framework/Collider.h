@@ -9,16 +9,30 @@
 
 #include "PxPhysicsAPI.h"
 
+#include <vector>
+
 class Actor;
 class Mesh;
+
+enum eColliderType
+{
+	eBOX,
+	eSPHERE
+};
 
 class Collider : public Component
 {
 public:
-	Collider(Actor& owner);
+	Collider(Actor& owner, eColliderType collider_type);
 	Collider(Actor& owner, const float radius);
 
 	static unsigned int Type;
+
+	physx::PxShape* GetShape();
+
+	eColliderType GetGeometryType();
+
+	float GetRadius() const;
 
 	virtual void Tick(float delta_time) override;
 
@@ -37,10 +51,14 @@ protected:
 	const float half_extent_size	= 0.5f;
 
 	// Px physics material properties
-	const float static_friction		= 0.6f;
-	const float dynamic_friction	= 0.6f;
-	const float bounciness			= 0.9f;
+	const float static_friction		= 0.2f;
+	const float dynamic_friction	= 0.2f;
+	const float bounciness			= 0.5f;
+	float radius;
+
+	std::vector<float> scales;
 
 	// Mesh
 	std::shared_ptr<Mesh> collider_mesh;
+	eColliderType collider_type;
 };
