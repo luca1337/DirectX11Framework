@@ -34,6 +34,7 @@
 
 #include "Cube.h"
 #include "Sphere.h"
+#include "Enemy.h"
 
 int main(int argc, char** argv)
 {
@@ -42,7 +43,7 @@ int main(int argc, char** argv)
 
 	// init graphics pipeline
 	Graphics& graphics = Graphics::Singleton();
-	graphics.Initialize("D3DFramework", 1280, 1024, 1280 / 1024);
+	graphics.Initialize("D3DFramework", 1024, 720, 1024 / 720);
 
 	// init physics pipeline
 	d3d_engine::Physix& physics = d3d_engine::Physix::Get();
@@ -53,7 +54,7 @@ int main(int argc, char** argv)
 	directional_light.SetLightType(eLightType::DIRECTIONAL_LIGHT);
 	directional_light.SetDirection({0.0f, -3.0f, 0.0f});
 	directional_light.SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
-	directional_light.SetIntensity(0.5f);
+	directional_light.SetIntensity(0.8f);
 	directional_light.SetActive(true);
 
 	Light point_light00 = {};
@@ -62,7 +63,7 @@ int main(int argc, char** argv)
 	point_light00.SetAttenuation({ 1.0f, 0.08f, 0.0f });
 	point_light00.SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 	point_light00.SetRange(2.0f);
-	point_light00.SetIntensity(3.0f);
+	point_light00.SetIntensity(2.0f);
 	point_light00.SetActive(true);
 
 	Light point_light01 = {};
@@ -70,8 +71,8 @@ int main(int argc, char** argv)
 	point_light01.SetPosition({ -100.0f, 10.0f, 100.0f });
 	point_light01.SetAttenuation({ 1.0f, 0.08f, 0.0f });
 	point_light01.SetColor({ 0.0f, 1.0f, 1.0f, 1.0f });
-	point_light01.SetRange(3.0f);
-	point_light01.SetIntensity(4.0f);
+	point_light01.SetRange(2.0f);
+	point_light01.SetIntensity(2.0f);
 	point_light01.SetActive(true);
 
 	graphics.AddLight({directional_light, point_light00, point_light01 });
@@ -98,6 +99,9 @@ int main(int argc, char** argv)
 
 	TextureManager::AddTexture("Assets/Textures/wood_albedo.jpg", "wood_a");
 	TextureManager::AddTexture("Assets/Textures/wood_normal.jpg", "wood_n");
+
+	TextureManager::AddTexture("Assets/Textures/robot_albedo.png", "robot_a");
+	TextureManager::AddTexture("Assets/Textures/robot_normal.png", "robot_n");
 
 	// Skydome
 	std::shared_ptr<Skydome> skydome = std::make_shared<Skydome>("Assets/Models/sphere.txt");
@@ -157,7 +161,7 @@ int main(int argc, char** argv)
 	sphere->AddComponent<RigidBody>(sphere_rb);
 
 	world.SpawnActor(sphere);
-	
+
 	// Keyboard tracking
 	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();
 	DirectX::Keyboard::KeyboardStateTracker tracker;

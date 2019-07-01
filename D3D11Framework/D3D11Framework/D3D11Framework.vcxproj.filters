@@ -175,6 +175,36 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Engine\Source\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="Adapter.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthTarget.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GPUBuffer.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GPUConstBuffer.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryShader.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderObject.cpp">
+      <Filter>DxStuff\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adapter.h">
@@ -330,6 +360,12 @@
     <ClInclude Include="Sphere.h">
       <Filter>Engine\Headers\Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="GeometryShader.h">
+      <Filter>DxStuff\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Workflow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="cubemap_pixel_hlsl.hlsl">
@@ -371,6 +407,12 @@
       <Filter>Assets\Models</Filter>
     </Text>
     <Text Include="Assets\Models\sphere.txt">
+      <Filter>Assets\Models</Filter>
+    </Text>
+    <Text Include="Assets\Models\robot.txt">
+      <Filter>Assets\Models</Filter>
+    </Text>
+    <Text Include="Assets\Models\grid.txt">
       <Filter>Assets\Models</Filter>
     </Text>
   </ItemGroup>
@@ -421,6 +463,12 @@
       <Filter>Assets\Textures</Filter>
     </Image>
     <Image Include="Assets\Textures\wood_normal.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\robot_albedo.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\robot_normal.png">
       <Filter>Assets\Textures</Filter>
     </Image>
   </ItemGroup>

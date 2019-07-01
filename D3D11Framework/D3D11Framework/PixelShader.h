@@ -1,22 +1,17 @@
 #pragma once
 
-#include "Device.h"
+#include <memory>
+
+class Device;
+struct ID3D11PixelShader;
+struct ID3D11InputLayout;
 
 class PixelShader
 {
 public:
-	PixelShader(std::shared_ptr<Device> device, const void* byte_code, SIZE_T byte_code_size) :	device(device)
-	{
-		if (device->GetDXHandle()->CreatePixelShader(byte_code, byte_code_size, nullptr, &pixel_shader) != S_OK)
-		{
-			throw std::exception("unable to create pixel shader");
-		}
-	}
+	PixelShader(std::shared_ptr<Device> device, const void* byte_code, size_t byte_code_size);
 
-	void Bind()
-	{
-		device->GetDXContext()->PSSetShader(pixel_shader, nullptr, 0);
-	}
+	void Bind();
 
 private:
 	std::shared_ptr<Device> device;

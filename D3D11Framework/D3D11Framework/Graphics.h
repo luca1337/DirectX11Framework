@@ -16,6 +16,7 @@ class VertexShader;
 class PixelShader;
 class DepthTarget;
 class GPUConstBuffer;
+class Mesh;
 
 class Graphics final
 {

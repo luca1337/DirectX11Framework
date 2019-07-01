@@ -1,28 +1,18 @@
 #pragma once
 
+#include <memory>
 
-#include "Texture.h"
-#include "Engine.h"
+class Texture;
+struct ID3D11DepthStencilView;
 
 class DepthTarget
 {
 public:
-	DepthTarget(std::shared_ptr<Texture> texture) : texture(texture), dsv(nullptr)
-	{
-		// a render target view is an object able to receive rasterization
-		// output (like an opengl framebuffer)
-		if (Engine::Singleton().GetDxDevice()->GetDXHandle()->CreateDepthStencilView(texture->GetDXHandle(), nullptr, &dsv) != S_OK)
-		{
-			throw std::exception("unable to create depth stencil view");
-		}
-	}
+	DepthTarget(std::shared_ptr<Texture> texture);
 
-	void Clear()
-	{
-		Engine::Singleton().GetDxDevice()->GetDXContext()->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
-	}
+	void Clear();
 
-	ID3D11DepthStencilView* GetDXHandle() { return dsv; }
+	ID3D11DepthStencilView* GetDXHandle();
 
 private:
 	ID3D11DepthStencilView* dsv;

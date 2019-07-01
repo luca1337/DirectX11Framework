@@ -46,6 +46,7 @@ public:
 	const SimpleMath::Vector3& GetPosition() const;
 
 	void Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal_map, std::shared_ptr<Material> material);
+	void Draw();
 
 	SimpleMath::Vector3 location_v;
 	SimpleMath::Quaternion rotation_q;

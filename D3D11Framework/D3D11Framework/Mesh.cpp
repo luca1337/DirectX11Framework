@@ -157,6 +157,30 @@ void Mesh::Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal
 	}
 }
 
+void Mesh::Draw()
+{
+	// bind up camera and ambient light but only once!!!! they must not be changed
+	light_properties.eye_position = Graphics::Singleton().GetMainCamera()->GetPosition();
+	light_properties.global_ambient = SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+
+	Graphics::Singleton().lights_properties_buffer->BindInPixel(2, &light_properties, 1);
+
+	///// HERE WE NEED TO BIND LIGHT BUFFER /////
+
+	Graphics::Singleton().lights_buffer->BindInPixel(1, Graphics::Singleton().lights.data(), 1);
+
+	UpdateMatrix();
+
+	mvp_buffer->BindInVertex(0, &mvp);
+
+	for (int i = 0; i < buffers.size(); i++)
+	{
+		buffers[i]->Bind(i);
+	}
+
+	Engine::Singleton().GetDxDevice()->GetDXContext()->Draw(vertices_count, 0);
+}
+
 void Mesh::AddBuffer(UINT size, UINT stride, void* data)
 {
 	auto buffer = std::make_shared<GPUBuffer>(Engine::Singleton().GetDxDevice(), size, stride, data);

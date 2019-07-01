@@ -35,7 +35,8 @@ void Skydome::Render()
 
 	skydome_vs->Bind();
 	skydome_ps->Bind();
-	skydome_mesh->Draw(nullptr, nullptr, nullptr);
+
+	skydome_mesh->Draw();
 
 	Engine::Singleton().GetDxDevice()->TurnOnZBuffer();
 

@@ -103,7 +103,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_DISABLE_EXTENDED_ALIGNED_STORAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Dev\PhysX-4.1\physx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Luca\Desktop\PhysX-4.1\physx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -111,7 +111,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>PhysX_64.lib;PhysXPvdSDK_static_64.lib;PhysXFoundation_64.lib;PhysXCommon_64.lib;PhysXExtensions_static_64.lib;dxgi.lib;d3d11.lib;xinput.lib;d3dcompiler.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Dev\PhysX-4.1\physx\bin\win.x86_64.vc141.mt\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Luca\Desktop\PhysX-4.1\physx\bin\win.x86_64.vc141.mt\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -150,14 +150,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Adapter.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Cubemap.cpp" />
+    <ClCompile Include="DepthTarget.cpp" />
+    <ClCompile Include="Device.cpp" />
     <ClCompile Include="DxMenu.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GeometryShader.cpp" />
+    <ClCompile Include="GPUBuffer.cpp" />
+    <ClCompile Include="GPUConstBuffer.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -171,16 +177,20 @@
     <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Physix.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="ShaderLayoutDesc.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="Skydome.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -199,8 +209,10 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="DX.h" />
     <ClInclude Include="DxMenu.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GPUBuffer.h" />
     <ClInclude Include="GPUConstBuffer.h" />
     <ClInclude Include="Graphics.h" />
@@ -305,6 +317,8 @@
   <ItemGroup>
     <Text Include="Assets\Models\aj.txt" />
     <Text Include="Assets\Models\cube.txt" />
+    <Text Include="Assets\Models\grid.txt" />
+    <Text Include="Assets\Models\robot.txt" />
     <Text Include="Assets\Models\skysphere.txt" />
     <Text Include="Assets\Models\sphere.txt" />
   </ItemGroup>
@@ -319,6 +333,8 @@
     <Image Include="Assets\Textures\Metal_normal.jpg" />
     <Image Include="Assets\Textures\organic_albedo.jpg" />
     <Image Include="Assets\Textures\organic_normal.jpg" />
+    <Image Include="Assets\Textures\robot_albedo.png" />
+    <Image Include="Assets\Textures\robot_normal.png" />
     <Image Include="Assets\Textures\stone_albedo.jpg" />
     <Image Include="Assets\Textures\stone_normal.jpg" />
     <Image Include="Assets\Textures\wall_albedo.jpg" />
