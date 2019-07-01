@@ -41,6 +41,8 @@ public:
 
 	void Rotate(float x, float y, float z);
 
+	void SetRotation(const SimpleMath::Quaternion& rot);
+
 	const SimpleMath::Vector3& GetPosition() const;
 
 	void Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal_map, std::shared_ptr<Material> material);

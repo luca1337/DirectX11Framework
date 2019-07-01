@@ -51,9 +51,9 @@ protected:
 	const float half_extent_size	= 0.5f;
 
 	// Px physics material properties
-	const float static_friction		= 0.2f;
-	const float dynamic_friction	= 0.2f;
-	const float bounciness			= 0.5f;
+	const float static_friction		= 0.6f;
+	const float dynamic_friction	= 0.6f;
+	const float bounciness			= 0.1f;
 	float radius;
 
 	std::vector<float> scales;

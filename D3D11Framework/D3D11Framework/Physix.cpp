@@ -47,12 +47,6 @@ void d3d_engine::Physix::InitPhysix()
 	{
 		throw std::exception("unable to create scene");
 	}
-
-	material = physics->createMaterial(1.0f, 0.1f, 0.0f);
-	if (!material)
-	{
-		throw std::exception("unable to create material");
-	}
 }
 
 void d3d_engine::Physix::UpdatePhysx(float delta_time)

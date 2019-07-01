@@ -17,14 +17,14 @@ Collider::Collider(Actor& owner, eColliderType collider_type) : owner(owner), co
 		collider_mesh = std::make_shared<Mesh>("Assets/Models/cube.txt");
 		collider_mesh->SetScale(owner.transform->scale);
 		collider_mesh->SetPosition(owner.transform->location);
-		//collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->SetRotation(owner.transform->rotation);
 	}
 	else
 	{
 		collider_mesh = std::make_shared<Mesh>("Assets/Models/sphere.txt");
 		collider_mesh->SetScale(owner.transform->scale);
 		collider_mesh->SetPosition(owner.transform->location);
-		//collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->SetRotation(owner.transform->rotation);
 
 		scales.push_back(owner.transform->scale.x);
 		scales.push_back(owner.transform->scale.y);
@@ -76,7 +76,7 @@ void Collider::Tick(float delta_time)
 	{
 		collider_mesh->SetScale(owner.transform->scale);
 		collider_mesh->SetPosition(owner.transform->location);
-		//collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->SetRotation(owner.transform->rotation);
 	}
 	else
 	{
@@ -96,7 +96,7 @@ void Collider::Tick(float delta_time)
 
 		collider_mesh->SetScale(radius, radius, radius);
 		collider_mesh->SetPosition(owner.transform->location);
-		//collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->SetRotation(owner.transform->rotation);
 	}
 
 	collider_mesh->Draw(nullptr, nullptr, nullptr);

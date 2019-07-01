@@ -48,7 +48,12 @@ void Mesh::SetRotation(const SimpleMath::Vector3& eulers)
 
 void Mesh::SetRotation(float x, float y, float z)
 {
-	rotation_q = SimpleMath::Quaternion::CreateFromYawPitchRoll(x, y, z);;
+	rotation_q = SimpleMath::Quaternion::CreateFromYawPitchRoll(x, y, z);
+}
+
+void Mesh::SetRotation(const SimpleMath::Quaternion& rot)
+{
+	rotation_q = rot;
 }
 
 void Mesh::SetScale(float x, float y, float z)
