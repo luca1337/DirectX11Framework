@@ -100,8 +100,8 @@ int main(int argc, char** argv)
 	TextureManager::AddTexture("Assets/Textures/wood_albedo.jpg", "wood_a");
 	TextureManager::AddTexture("Assets/Textures/wood_normal.jpg", "wood_n");
 
-	TextureManager::AddTexture("Assets/Textures/robot_albedo.png", "robot_a");
-	TextureManager::AddTexture("Assets/Textures/robot_normal.png", "robot_n");
+	/*TextureManager::AddTexture("Assets/Textures/robot_albedo.png", "robot_a");
+	TextureManager::AddTexture("Assets/Textures/robot_normal.png", "robot_n");*/
 
 	// Skydome
 	std::shared_ptr<Skydome> skydome = std::make_shared<Skydome>("Assets/Models/sphere.txt");
@@ -151,6 +151,17 @@ int main(int argc, char** argv)
 
 	world.SpawnActor(cube);
 
+	// CUBE 2 PRIMITIVE CREATION
+	auto cube2 = std::make_shared<Cube>(SimpleMath::Vector3(5.0f, 5.0f, 5.0f));
+	cube2->transform->location.y = 30;
+	cube2->transform->location.x = 30;
+
+	// RigidBody component
+	auto cube2_rb = std::make_shared<RigidBody>(*cube2, 1.0f, eRigidBodyType::DYNAMIC);
+	cube2->AddComponent<RigidBody>(cube2_rb);
+
+	world.SpawnActor(cube2);
+
 	// SPHERE PRIMITIVE CREATION
 	auto sphere = std::make_shared<Sphere>();
 	sphere->transform->location = { -10.0f, 20.0f, 0.0f };
@@ -178,6 +189,8 @@ int main(int argc, char** argv)
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+
+		cube2->transform->Rotate({ 3.0f * graphics.delta_time, 12.0f * graphics.delta_time, 6.0f * graphics.delta_time });
 
 		graphics.Clear();
 

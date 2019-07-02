@@ -204,7 +204,7 @@ ps_out main(ps_in IN)
     ps_out OUT;
     OUT.pixel_color = float4(0, 0, 0, 0);
 
-    //IN.world_uv *= 6;
+    IN.world_uv *= 6;
 
     LightingResult result = ComputeLights(IN);
 

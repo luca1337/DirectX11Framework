@@ -37,10 +37,6 @@ public:
 
 	void Scale(float x, float y, float z);
 
-	void Rotate(const SimpleMath::Vector3& rot);
-
-	void Rotate(float x, float y, float z);
-
 	void SetRotation(const SimpleMath::Quaternion& rot);
 
 	const SimpleMath::Vector3& GetPosition() const;
@@ -48,9 +44,6 @@ public:
 	void Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal_map, std::shared_ptr<Material> material);
 	void Draw();
 
-	SimpleMath::Vector3 location_v;
-	SimpleMath::Quaternion rotation_q;
-	SimpleMath::Vector3 scale_v;
 private:
 	void AddBuffer(UINT size, UINT stride, void* data);
 
@@ -65,6 +58,10 @@ private:
 	SimpleMath::Matrix translation;
 	SimpleMath::Matrix rotation;
 	SimpleMath::Matrix scale;
+
+	SimpleMath::Vector3 location_v;
+	SimpleMath::Quaternion rotation_q;
+	SimpleMath::Vector3 scale_v;
 
 	Mvp mvp;
 

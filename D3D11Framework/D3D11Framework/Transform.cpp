@@ -1,5 +1,7 @@
 #include "Transform.h"
 
+#include "Graphics.h"
+
 unsigned int Transform::Type = 0;
 
 Transform::Transform()
@@ -26,9 +28,13 @@ void Transform::Translate(float x, float y, float z)
 void Transform::Rotate(const SimpleMath::Vector3 & eulers)
 {
 	// TODO: build rotation using Quaternions
+	DirectX::SimpleMath::Quaternion new_rotation = DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(eulers.x, eulers.y, eulers.z);
+	rotation *= new_rotation;
 }
 
 void Transform::Rotate(float x, float y, float z)
 {
 	// TODO: build rotation using Quaternions
+	DirectX::SimpleMath::Quaternion new_rotation = DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(x, y, z);
+	rotation *= new_rotation;
 }
