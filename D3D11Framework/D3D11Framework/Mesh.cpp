@@ -87,16 +87,6 @@ void Mesh::Scale(float x, float y, float z)
 	scale_v.z += z;
 }
 
-void Mesh::Rotate(const SimpleMath::Vector3& rot)
-{
-	// TODO: build rotation from quaternion starting by eulers
-}
-
-void Mesh::Rotate(float x, float y, float z)
-{
-	// TODO: build rotation from quaternion starting by eulers
-}
-
 const SimpleMath::Vector3& Mesh::GetPosition() const
 {
 	return location_v;

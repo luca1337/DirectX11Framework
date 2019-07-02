@@ -19,9 +19,9 @@ void MeshRenderer::BeginPlay()
 void MeshRenderer::Tick(float delta_time)
 {
 	// set the transform
-	mesh->location_v = owner.transform->location;
-	mesh->rotation_q = owner.transform->rotation;
-	mesh->scale_v = owner.transform->scale;
+	mesh->SetPosition(owner.transform->location);
+	mesh->SetRotation(owner.transform->rotation);
+	mesh->SetScale(owner.transform->scale);
 
 	mesh->Draw(albedo, normal_map, material);
 }

@@ -5,7 +5,7 @@ physx::PxPhysics* d3d_engine::Physix::GetPxPhysics()
 	return physics;
 }
 
-physx::PxMaterial * d3d_engine::Physix::GetPxMaterial()
+physx::PxMaterial* d3d_engine::Physix::GetPxMaterial()
 {
 	return material;
 }
