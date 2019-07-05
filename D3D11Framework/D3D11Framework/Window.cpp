@@ -50,7 +50,7 @@ Window::Window(std::shared_ptr<Device> device, unsigned int width, unsigned int 
 	RECT rect = { 0, 0, (LONG)width, (LONG)height };
 
 	// this will compute the right dimension
-	//AdjustWindowRect(&rect, style, false);
+	AdjustWindowRect(&rect, style, false);
 
 	window = CreateWindow(window_class_name.c_str(), title.c_str(),
 		style, CW_USEDEFAULT, CW_USEDEFAULT,

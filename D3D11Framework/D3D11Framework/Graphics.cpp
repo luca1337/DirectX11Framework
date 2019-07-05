@@ -104,7 +104,7 @@ void Graphics::Initialize(std::string title, unsigned width, unsigned height, fl
 	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();
 
 	// DEPTH STENCIL
-	depth_texture = std::make_shared<Texture>(1024, 720, DXGI_FORMAT_D24_UNORM_S8_UINT);
+	depth_texture = std::make_shared<Texture>(1024, 1024, DXGI_FORMAT_D24_UNORM_S8_UINT);
 	depth_target = std::make_shared<DepthTarget>(depth_texture);
 	render_target->Bind(depth_target);
 

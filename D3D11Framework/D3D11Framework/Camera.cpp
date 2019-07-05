@@ -120,22 +120,22 @@ const SimpleMath::Vector3& Camera::GetBackwardVector()
 void Camera::UpdateCameraMatrix()
 {
 	// get current camera rotation matrix
-	SimpleMath::Matrix camera_rotation = DirectX::XMMatrixRotationRollPitchYaw(rotation.y, rotation.z, rotation.x);
+	DirectX::XMMATRIX camera_rotation = DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
 
-	SimpleMath::Vector3 camera_focus = SimpleMath::Vector3::Transform(FORWARD_VECTOR, camera_rotation);
+	DirectX::XMVECTOR camera_focus = DirectX::XMVector3TransformCoord(FORWARD_VECTOR, camera_rotation);
 
-	camera_focus += position;
+	DirectX::XMVECTOR new_cam_focus = DirectX::XMVectorAdd(camera_focus, position);
 
-	SimpleMath::Vector3 direction_up = SimpleMath::Vector3::Transform(UP_VECTOR, camera_rotation);
+	DirectX::XMVECTOR direction_up = DirectX::XMVector3TransformCoord(UP_VECTOR, camera_rotation);
 
-	view = XMMatrixLookAtLH(position, camera_focus, direction_up);
+	view = DirectX::XMMatrixLookAtLH(position, new_cam_focus, direction_up);
 
-	SimpleMath::Matrix view_rotation = DirectX::XMMatrixRotationRollPitchYaw(rotation.y, rotation.z, rotation.x);
+	DirectX::XMMATRIX view_rotation = DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
 
-	this->up = SimpleMath::Vector3::Transform(UP_VECTOR, view_rotation);
-	this->down = SimpleMath::Vector3::Transform(DOWN_VECTOR, view_rotation);
-	this->forward = SimpleMath::Vector3::Transform(FORWARD_VECTOR, view_rotation);
-	this->left = SimpleMath::Vector3::Transform(LEFT_VECTOR, view_rotation);
-	this->right = SimpleMath::Vector3::Transform(RIGHT_VECTOR, view_rotation);
-	this->backward = SimpleMath::Vector3::Transform(BACKWARD_VECTOR, view_rotation);
+	this->up = DirectX::XMVector3TransformCoord(UP_VECTOR, view_rotation);
+	this->down = DirectX::XMVector3TransformCoord(DOWN_VECTOR, view_rotation);
+	this->forward = DirectX::XMVector3TransformCoord(FORWARD_VECTOR, view_rotation);
+	this->left = DirectX::XMVector3TransformCoord(LEFT_VECTOR, view_rotation);
+	this->right = DirectX::XMVector3TransformCoord(RIGHT_VECTOR, view_rotation);
+	this->backward = DirectX::XMVector3TransformCoord(BACKWARD_VECTOR, view_rotation);
 }

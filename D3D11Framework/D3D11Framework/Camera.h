@@ -48,12 +48,12 @@ private:
 	SimpleMath::Matrix view;
 	SimpleMath::Matrix projection;
 
-	const SimpleMath::Vector3 UP_VECTOR = SimpleMath::Vector3(0.0f, 1.0f, 0.0f);
-	const SimpleMath::Vector3 DOWN_VECTOR = SimpleMath::Vector3(0.0f, -1.0f, 0.0f);
-	const SimpleMath::Vector3 LEFT_VECTOR = SimpleMath::Vector3(-1.0f, 0.0f, 0.0f);
-	const SimpleMath::Vector3 RIGHT_VECTOR = SimpleMath::Vector3(1.0f, 0.0f, 0.0f);
-	const SimpleMath::Vector3 FORWARD_VECTOR = SimpleMath::Vector3(0.0f, 0.0f, 1.0f);
-	const SimpleMath::Vector3 BACKWARD_VECTOR = SimpleMath::Vector3(0.0f, 0.0f, -1.0f);
+	const DirectX::XMVECTOR UP_VECTOR = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	const DirectX::XMVECTOR DOWN_VECTOR = DirectX::XMVectorSet(0.0f, -1.0f, 0.0f, 0.0f);
+	const DirectX::XMVECTOR FORWARD_VECTOR = DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+	const DirectX::XMVECTOR LEFT_VECTOR = DirectX::XMVectorSet(-1.0f, 0.0f, 0.0f, 0.0f);
+	const DirectX::XMVECTOR RIGHT_VECTOR = DirectX::XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+	const DirectX::XMVECTOR BACKWARD_VECTOR = DirectX::XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f);
 
 	SimpleMath::Vector3 up;
 	SimpleMath::Vector3 down;

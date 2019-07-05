@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 
 	// init graphics pipeline
 	Graphics& graphics = Graphics::Singleton();
-	graphics.Initialize("D3DFramework", 1024, 720, 1024 / 720);
+	graphics.Initialize("D3DFramework", 1024, 1024, 1024 / 1024);
 
 	// init physics pipeline
 	d3d_engine::Physix& physics = d3d_engine::Physix::Get();
@@ -225,22 +225,22 @@ int main(int argc, char** argv)
 
 		if (state.Right)
 		{
-			graphics.GetMainCamera()->Rotate(0.0f, 0.0f, 1.0f * graphics.delta_time);
+			graphics.GetMainCamera()->Rotate(0.0f, 1.0f * graphics.delta_time, 0.0f);
 		}
 
 		if (state.Left)
 		{
-			graphics.GetMainCamera()->Rotate(0.0f, 0.0f, -1.0f * graphics.delta_time);
+			graphics.GetMainCamera()->Rotate(0.0f, -1.0f * graphics.delta_time, 0.0f);
 		}
 
 		if (state.Up)
 		{
-			graphics.GetMainCamera()->Rotate(0.0f, 1.0f * graphics.delta_time, 0.0f);
+			graphics.GetMainCamera()->Rotate(-1.0f * graphics.delta_time, 0.0f, 0.0f);
 		}
 
 		if (state.Down)
 		{
-			graphics.GetMainCamera()->Rotate(0.0f, -1.0f * graphics.delta_time, 0.0f);
+			graphics.GetMainCamera()->Rotate(1.0f * graphics.delta_time, 0.0f, 0.0f);
 		}
 
 		if (state.E)
