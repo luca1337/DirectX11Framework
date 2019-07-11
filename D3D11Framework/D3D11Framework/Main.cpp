@@ -36,6 +36,8 @@
 #include "Sphere.h"
 #include "Enemy.h"
 
+#include "Time.h"
+
 int main(int argc, char** argv)
 {
 	// Init engine
@@ -151,17 +153,6 @@ int main(int argc, char** argv)
 
 	world.SpawnActor(cube);
 
-	// CUBE 2 PRIMITIVE CREATION
-	auto cube2 = std::make_shared<Cube>(SimpleMath::Vector3(5.0f, 5.0f, 5.0f));
-	cube2->transform->location.y = 30;
-	cube2->transform->location.x = 30;
-
-	// RigidBody component
-	auto cube2_rb = std::make_shared<RigidBody>(*cube2, 1.0f, eRigidBodyType::DYNAMIC);
-	cube2->AddComponent<RigidBody>(cube2_rb);
-
-	world.SpawnActor(cube2);
-
 	// SPHERE PRIMITIVE CREATION
 	auto sphere = std::make_shared<Sphere>();
 	sphere->transform->location = { -10.0f, 20.0f, 0.0f };
@@ -172,6 +163,16 @@ int main(int argc, char** argv)
 	sphere->AddComponent<RigidBody>(sphere_rb);
 
 	world.SpawnActor(sphere);
+
+	// create an empty actor only for containing colliders
+	auto empty_actor00 = std::make_shared<Actor>();
+	empty_actor00->transform->scale = {5, 5, 5};
+
+	auto collider00 = std::make_shared<BoxCollider>(*empty_actor00);
+
+	empty_actor00->AddComponent<BoxCollider>(collider00);
+
+	world.SpawnActor(empty_actor00);
 
 	// Keyboard tracking
 	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();
@@ -190,69 +191,17 @@ int main(int argc, char** argv)
 			DispatchMessage(&msg);
 		}
 
-		cube2->transform->Rotate({ 3.0f * graphics.delta_time, 12.0f * graphics.delta_time, 6.0f * graphics.delta_time });
-
 		graphics.Clear();
 
 		skydome->Render();
 
-		#pragma region INPUT
-
 		if (state.IsKeyDown(DirectX::Keyboard::Keys::H))
-		{
-			sphere_rb->AddForce({ 100.0f, 0.0f, 0.0f }, physx::PxForceMode::eFORCE);
-		}
+			sphere_rb->AddForce({ 100.0f, 0.0f, 0.0f }, eForceMode::eFORCE);
 
-		if (state.IsKeyDown(DirectX::Keyboard::Keys::W))
-		{
-			graphics.GetMainCamera()->Translate(graphics.GetMainCamera()->GetForwardVector() * 30.0f * graphics.delta_time);
-		}
+		if (state.IsKeyDown(DirectX::Keyboard::Keys::Space))
+			empty_actor00->transform->Translate(10.0f * Time::GetDeltaTime(), 0.0f, 0.0f);
 
-		if (state.S)
-		{
-			graphics.GetMainCamera()->Translate(graphics.GetMainCamera()->GetBackwardVector() * 30.0f * graphics.delta_time);
-		}
-
-		if (state.A)
-		{
-			graphics.GetMainCamera()->Translate(graphics.GetMainCamera()->GetLeftVector() * 30.0f * graphics.delta_time);
-		}
-
-		if (state.D)
-		{
-			graphics.GetMainCamera()->Translate(graphics.GetMainCamera()->GetRightVector() * 30.0f * graphics.delta_time);
-		}
-
-		if (state.Right)
-		{
-			graphics.GetMainCamera()->Rotate(0.0f, 1.0f * graphics.delta_time, 0.0f);
-		}
-
-		if (state.Left)
-		{
-			graphics.GetMainCamera()->Rotate(0.0f, -1.0f * graphics.delta_time, 0.0f);
-		}
-
-		if (state.Up)
-		{
-			graphics.GetMainCamera()->Rotate(-1.0f * graphics.delta_time, 0.0f, 0.0f);
-		}
-
-		if (state.Down)
-		{
-			graphics.GetMainCamera()->Rotate(1.0f * graphics.delta_time, 0.0f, 0.0f);
-		}
-
-		if (state.E)
-		{
-			graphics.GetMainCamera()->Translate(graphics.GetMainCamera()->GetUpVector() * 30.0f * graphics.delta_time);
-		}
-
-		if (state.Q)
-		{
-			graphics.GetMainCamera()->Translate(graphics.GetMainCamera()->GetDownVector() * 30.0f * graphics.delta_time);
-		}
-#pragma endregion
+		Graphics::Singleton().GetMainCamera()->Update(state);
 
 		graphics.Present();
 	}

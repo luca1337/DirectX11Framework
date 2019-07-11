@@ -99,7 +99,7 @@ void Collider::Tick(float delta_time)
 		collider_mesh->SetRotation(owner.transform->rotation);
 	}
 
-	collider_mesh->Draw(nullptr, nullptr, nullptr);
+	collider_mesh->Draw();
 
 	Engine::Singleton().GetDxDevice()->TurnOffWireframeRendering();
 

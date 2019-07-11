@@ -9,6 +9,8 @@
 #include "Component.h"
 #include "Enums.h"
 
+#include "ForceMode.h"
+
 class Actor;
 
 enum eRigidBodyType
@@ -28,7 +30,7 @@ class RigidBody : public Component
 public:
 	RigidBody(Actor& owner, float mass, eRigidBodyType rb_type = eRigidBodyType::DYNAMIC);
 
-	void AddForce(const DirectX::SimpleMath::Vector3 force, physx::PxForceMode::Enum force_mode);
+	void AddForce(const DirectX::SimpleMath::Vector3 force, eForceMode force_mode);
 	void SetKinematic(bool is_kinematic);
 	void SetTrigger(bool is_trigger);
 	void SetUseGravity(bool disable_gravity = false);

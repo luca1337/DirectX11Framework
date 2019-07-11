@@ -14,5 +14,4 @@ Cube::Cube(const SimpleMath::Vector3& size)
 	// Set BoxCollider as default component of each cube we create
 	box_collider = std::make_shared<BoxCollider>(*this);
 	AddComponent<BoxCollider>(box_collider);
-
 }

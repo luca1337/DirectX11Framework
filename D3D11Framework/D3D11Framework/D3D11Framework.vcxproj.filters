@@ -205,6 +205,9 @@
     <ClCompile Include="ShaderObject.cpp">
       <Filter>DxStuff\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adapter.h">
@@ -365,6 +368,12 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Workflow</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceMode.h">
+      <Filter>Engine\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

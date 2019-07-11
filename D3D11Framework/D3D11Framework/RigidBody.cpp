@@ -136,9 +136,9 @@ RigidBody::RigidBody(Actor& owner, float mass, eRigidBodyType rb_type) : owner(o
 	}
 }
 
-void RigidBody::AddForce(const DirectX::SimpleMath::Vector3 force, physx::PxForceMode::Enum force_mode)
+void RigidBody::AddForce(const DirectX::SimpleMath::Vector3 force, eForceMode force_mode)
 {
-	body_dynamic->addForce(physx::PxVec3(force.x, force.y, force.z), force_mode);
+	body_dynamic->addForce(physx::PxVec3(force.x, force.y, force.z), static_cast<physx::PxForceMode::Enum>(force_mode));
 }
 
 void RigidBody::SetKinematic(bool is_kinematic)

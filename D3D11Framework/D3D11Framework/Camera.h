@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include <SimpleMath.h>
+#include <Keyboard.h>
 
 using namespace DirectX;
 
@@ -26,6 +27,11 @@ public:
 	void Rotate(float roll, float pitch, float yaw);
 	void Rotate(const SimpleMath::Vector3& rot);
 
+	void SetCameraSpeed(float value);
+	void SetCameraRotationSpeed(float value);
+
+	void Update(const DirectX::Keyboard::State& state);
+
 	const SimpleMath::Vector3& GetPosition() const;
 	const SimpleMath::Vector3& GetRotation() const;
 
@@ -39,6 +45,9 @@ public:
 private:
 
 	void UpdateCameraMatrix();
+
+	float camera_speed;
+	float rotation_speed;
 
 	// Camera Vectors
 	SimpleMath::Vector3 position;
