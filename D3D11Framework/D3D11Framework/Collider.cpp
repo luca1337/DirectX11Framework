@@ -6,6 +6,7 @@
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "Engine.h"
+#include "Device.h"
 #include <algorithm>
 
 unsigned int Collider::Type = 0;
@@ -99,7 +100,12 @@ void Collider::Tick(float delta_time)
 		collider_mesh->SetRotation(owner.transform->rotation);
 	}
 
+#ifdef COLLIDERS
+
 	collider_mesh->Draw();
+
+#endif // COLLIDERS
+
 
 	Engine::Singleton().GetDxDevice()->TurnOffWireframeRendering();
 

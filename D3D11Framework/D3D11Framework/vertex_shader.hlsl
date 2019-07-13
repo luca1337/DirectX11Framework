@@ -37,6 +37,7 @@ vs_out main(vs_in IN)
     OUT.world_bitangent = normalize(OUT.world_bitangent);
 	OUT.out_position = mul(projection, mul(view, float4(OUT.world_position, 1)));
 
+
 	OUT.world_uv = IN.in_uv;
 
     return OUT;

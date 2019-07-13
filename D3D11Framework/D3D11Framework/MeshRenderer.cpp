@@ -29,13 +29,11 @@ void MeshRenderer::Tick(float delta_time)
 void MeshRenderer::SetAlbedo(std::string albedo)
 {
 	this->albedo = TextureManager::GetTexture(albedo);
-	material->SetUseAlbedo(true);
 }
 
 void MeshRenderer::SetNormal(std::string normal_map)
 {
 	this->normal_map = TextureManager::GetTexture(normal_map);
-	material->SetUseNormalMap(true);
 }
 
 void MeshRenderer::AssignMaterial(std::shared_ptr<Material> material)

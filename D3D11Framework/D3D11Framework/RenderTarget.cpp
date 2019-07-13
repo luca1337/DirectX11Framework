@@ -31,6 +31,8 @@ void RenderTarget::Bind(std::shared_ptr<DepthTarget> depth_target)
 	viewport.Height = (float)texture->GetHeight();
 	viewport.MinDepth = 0;
 	viewport.MaxDepth = 1;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
 	Engine::Singleton().GetDxDevice()->GetDXContext()->RSSetViewports(1, &viewport);
 }
 

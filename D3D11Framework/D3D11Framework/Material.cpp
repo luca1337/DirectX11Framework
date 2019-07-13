@@ -22,17 +22,17 @@ void Material::SetSpecular(const SimpleMath::Vector4 & specular)
 	Specular = specular;
 }
 
-void Material::SetSpecularExponent(const float value)
+void Material::SetSpecularExponent(float value)
 {
 	SpecularPower = value;
 }
 
-void Material::SetUseAlbedo(const bool value)
+void Material::SetUseAlbedo(bool value)
 {
 	UseTexture = value;
 }
 
-void Material::SetUseNormalMap(const bool value)
+void Material::SetUseNormalMap(bool value)
 {
 	UseNormal = value;
 }

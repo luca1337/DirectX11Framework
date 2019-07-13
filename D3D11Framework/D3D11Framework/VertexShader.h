@@ -1,30 +1,19 @@
 #pragma once
 
-#include "Device.h"
+#include <string>
+#include <memory>
+
+class Device;
+struct D3D11_INPUT_ELEMENT_DESC;
+struct ID3D11VertexShader;
+struct ID3D11InputLayout;
 
 class VertexShader
 {
 public:
-	VertexShader(std::shared_ptr<Device> device, const void* byte_code, SIZE_T byte_code_size, D3D11_INPUT_ELEMENT_DESC* layout, UINT layout_size) :
-		device(device)
-	{
-		if (device->GetDXHandle()->CreateVertexShader(byte_code, byte_code_size, nullptr, &vertex_shader) != S_OK)
-		{
-			throw std::exception("unable to create vertex shader");
-		}
+	VertexShader(std::shared_ptr<Device> device, const void* byte_code, size_t byte_code_size, D3D11_INPUT_ELEMENT_DESC* layout, unsigned int layout_size);
 
-		// not the input layout is validated with the shader bytecode/opcodes
-		if (device->GetDXHandle()->CreateInputLayout(layout, layout_size, byte_code, byte_code_size, &input_layout) != S_OK)
-		{
-			throw std::exception("unable to create input layout");
-		}
-	}
-
-	void Bind()
-	{
-		device->GetDXContext()->IASetInputLayout(input_layout);
-		device->GetDXContext()->VSSetShader(vertex_shader, nullptr, 0);
-	}
+	void Bind();
 
 private:
 	std::shared_ptr<Device> device;

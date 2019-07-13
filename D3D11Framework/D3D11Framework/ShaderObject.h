@@ -7,24 +7,11 @@
 class ShaderObject
 {
 public:
-	ShaderObject(Texture texture) : texture(texture)
-	{
-		if (Engine::Singleton().GetDxDevice()->GetDXHandle()->CreateShaderResourceView1(texture.GetDXHandle(), nullptr, &srv) != S_OK)
-		{
-			throw std::exception("unable to create shader resource view");
-		}
-	}
+	ShaderObject(Texture texture);
 
-	void Bind(UINT gpu_register)
-	{
-		Engine::Singleton().GetDxDevice()->GetDXContext()->PSSetShaderResources(gpu_register, 1, (ID3D11ShaderResourceView**)&srv);
-	}
+	void Bind(UINT gpu_register);
 
-	void Unbind(UINT gpu_register)
-	{
-		ID3D11ShaderResourceView* nullsrv[1] = { nullptr };
-		Engine::Singleton().GetDxDevice()->GetDXContext()->PSSetShaderResources(gpu_register, 1, nullsrv);
-	}
+	void Unbind(UINT gpu_register);
 
 private:
 	ID3D11ShaderResourceView1* srv;

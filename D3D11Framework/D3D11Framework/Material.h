@@ -41,9 +41,9 @@ public:
 	void SetAmbient(const SimpleMath::Vector4& ambient);
 	void SetDiffuse(const SimpleMath::Vector4& diffuse);
 	void SetSpecular(const SimpleMath::Vector4& specular);
-	void SetSpecularExponent(const float value);
-	void SetUseAlbedo(const bool value);
-	void SetUseNormalMap(const bool value);
+	void SetSpecularExponent(float value);
+	void SetUseAlbedo(bool value);
+	void SetUseNormalMap(bool value);
 
 	// Getters
 	const SimpleMath::Vector4& GetEmissive() const;

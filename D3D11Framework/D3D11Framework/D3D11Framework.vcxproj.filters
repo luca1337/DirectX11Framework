@@ -480,5 +480,23 @@
     <Image Include="Assets\Textures\robot_normal.png">
       <Filter>Assets\Textures</Filter>
     </Image>
+    <Image Include="Assets\Textures\wood_smooth_normal.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\wood_smooth_albedo.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\metal_raw_albedo.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\metal_raw_normal.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\marble_albedo.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\marble_normal.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
