@@ -1,5 +1,7 @@
 #pragma once
 
+// Here we put all includes that belongs to the shader compiler
+
 #include "vs001.h"
 #include "ps001.h"
 

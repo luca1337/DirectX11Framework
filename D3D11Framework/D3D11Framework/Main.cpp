@@ -114,6 +114,9 @@ int main(int argc, char** argv)
 
 	TextureManager::AddTexture("Assets/Textures/marble_albedo.jpg", "marble_a");
 	TextureManager::AddTexture("Assets/Textures/marble_normal.jpg", "marble_n");
+
+	TextureManager::AddTexture("Assets/Textures/megaj.png", "jump");
+
 	// -End
 
 	// Skydome
@@ -133,7 +136,7 @@ int main(int argc, char** argv)
 	marble_material->SetSpecular({ 0.77f, 0.77f, 0.77f, 1.0f });
 	marble_material->SetSpecularExponent(76.8f);
 	marble_material->SetUseAlbedo(true);
-	marble_material->SetUseNormalMap(true);
+	marble_material->SetUseNormalMap(false);
 
 	auto renderer00 = player00->GetComponent<MeshRenderer>();
 	renderer00->SetAlbedo("metal_raw_a");
@@ -287,6 +290,10 @@ int main(int argc, char** argv)
 
 		physx_spheres[i]->transform->location += SimpleMath::Vector3(i % 5 * offset, i / 5 * (-offset), 0.0f);
 
+		// Add collider component
+		auto physx_collider = std::make_shared<SphereCollider>(*physx_spheres[i]);
+		physx_spheres[i]->AddComponent<SphereCollider>(physx_collider);
+
 		// Add rigidbody component
 		auto physx_rb = std::make_shared<RigidBody>(*physx_spheres[i], 1.0f, eRigidBodyType::DYNAMIC);
 		physx_spheres[i]->AddComponent<RigidBody>(physx_rb);
@@ -321,8 +328,6 @@ int main(int argc, char** argv)
 		graphics.Clear();
 
 		skydome->Render();
-
-		//if (state.IsKeyDown(DirectX::Keyboard::Keys::Space))
 
 		graphics.GetMainCamera()->Update(state);
 

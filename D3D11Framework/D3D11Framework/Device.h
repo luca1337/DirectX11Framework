@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <CommonStates.h>
 
 class Adapter;
 struct ID3D11BlendState;
@@ -34,7 +35,9 @@ public:
 
 	ID3D11DeviceContext4* GetDXContext();
 
+	std::unique_ptr<DirectX::CommonStates> states; // RAII
 private:
+
 	
 	void CreateRasterizerState(D3D11_RASTERIZER_DESC rs_desc);
 

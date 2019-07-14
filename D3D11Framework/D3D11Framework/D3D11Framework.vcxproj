@@ -360,6 +360,7 @@
     <Image Include="Assets\Textures\ice_normal.jpg" />
     <Image Include="Assets\Textures\marble_albedo.jpg" />
     <Image Include="Assets\Textures\marble_normal.jpg" />
+    <Image Include="Assets\Textures\megaj.png" />
     <Image Include="Assets\Textures\Metal_albedo.jpg" />
     <Image Include="Assets\Textures\Metal_normal.jpg" />
     <Image Include="Assets\Textures\metal_raw_albedo.jpg" />

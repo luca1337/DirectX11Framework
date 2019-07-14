@@ -34,7 +34,26 @@ Device::Device(std::shared_ptr<Adapter> adapter)
 
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	// setup RS (rasterization options)
+	// After the topology we can start by configuring the "common states" that we are
+	// going to use on our render pipeline in order to have different effects on each draw-call
+
+	// - Initialize states
+	states = std::make_unique<DirectX::CommonStates>(device);
+
+	// - BLEND STATE -
+	context->OMSetBlendState(states->Opaque(), 0, 0xFFFFFFFF);
+
+	// - DEPTH STENCIL -
+	context->OMSetDepthStencilState(states->DepthDefault(), 0);
+
+	// - RASTERIZER -
+	context->RSSetState(states->CullNone());
+
+	// - SAMPLER STATE -
+	auto sampler_state = states->AnisotropicWrap();
+	context->PSSetSamplers(0, 1, &sampler_state);
+
+	/*// setup RS (rasterization options)
 	D3D11_RASTERIZER_DESC r_desc = {};
 	r_desc.MultisampleEnable = true;
 	r_desc.CullMode = D3D11_CULL_NONE;
@@ -67,8 +86,7 @@ Device::Device(std::shared_ptr<Adapter> adapter)
 	{
 		throw std::exception("unable to create sampler state");
 	}
-
-	context->PSSetSamplers(0, 1, &ss);
+	context->PSSetSamplers(0, 1, &ss);*/
 }
 
 void Device::Draw(unsigned int vertices_num)
@@ -78,70 +96,32 @@ void Device::Draw(unsigned int vertices_num)
 
 void Device::TurnOffCulling()
 {
-	D3D11_RASTERIZER_DESC r_desc = {};
-	rs->GetDesc(&r_desc);
-	r_desc.CullMode = D3D11_CULL_NONE;
-
-	CreateRasterizerState(r_desc);
-	BindRasterizerState();
+	context->RSSetState(states->CullNone());
 }
 
 void Device::TurnOnBackCulling()
 {
-	D3D11_RASTERIZER_DESC r_desc = {};
-	rs->GetDesc(&r_desc);
-	r_desc.CullMode = D3D11_CULL_BACK;
-
-	CreateRasterizerState(r_desc);
-	BindRasterizerState();
+	context->RSSetState(states->CullCounterClockwise());
 }
 
 void Device::TurnOnWireframeRendering()
 {
-	D3D11_RASTERIZER_DESC r_desc = {};
-	rs->GetDesc(&r_desc);
-	r_desc.FillMode = D3D11_FILL_WIREFRAME;
-	CreateRasterizerState(r_desc);
-	BindRasterizerState();
+	context->RSSetState(states->Wireframe());
 }
 
 void Device::TurnOffWireframeRendering()
 {
-	D3D11_RASTERIZER_DESC r_desc = {};
-	rs->GetDesc(&r_desc);
-	r_desc.FillMode = D3D11_FILL_SOLID;
-	CreateRasterizerState(r_desc);
-	BindRasterizerState();
+	context->RSSetState(states->CullNone());
 }
 
 void Device::TurnOffZBuffer()
 {
-	D3D11_DEPTH_STENCIL_DESC dsd_desc = {};
-	dss->GetDesc(&dsd_desc);
-	dsd_desc.DepthEnable = false;
-	dsd_desc.DepthFunc = D3D11_COMPARISON_ALWAYS;
-
-	if (device->CreateDepthStencilState(&dsd_desc, &dss) != S_OK)
-	{
-		throw std::exception("unable to create depth stencil state");
-	}
-
-	context->OMSetDepthStencilState(dss, 0);
+	context->OMSetDepthStencilState(states->DepthNone(), 0);
 }
 
 void Device::TurnOnZBuffer()
 {
-	D3D11_DEPTH_STENCIL_DESC dsd_desc = {};
-	dss->GetDesc(&dsd_desc);
-	dsd_desc.DepthEnable = true;
-	dsd_desc.DepthFunc = D3D11_COMPARISON_LESS;
-
-	if (device->CreateDepthStencilState(&dsd_desc, &dss) != S_OK)
-	{
-		throw std::exception("unable to create depth stencil state");
-	}
-
-	context->OMSetDepthStencilState(dss, 0);
+	context->OMSetDepthStencilState(states->DepthDefault(), 0);
 }
 
 ID3D11Device5 * Device::GetDXHandle()

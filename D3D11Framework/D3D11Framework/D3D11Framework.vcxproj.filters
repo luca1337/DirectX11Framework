@@ -510,5 +510,8 @@
     <Image Include="Assets\Textures\marble_normal.jpg">
       <Filter>Assets\Textures</Filter>
     </Image>
+    <Image Include="Assets\Textures\megaj.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

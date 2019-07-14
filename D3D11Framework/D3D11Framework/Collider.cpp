@@ -104,7 +104,7 @@ void Collider::Tick(float delta_time)
 
 	collider_mesh->Draw();
 
-#endif // COLLIDERS
+#endif
 
 
 	Engine::Singleton().GetDxDevice()->TurnOffWireframeRendering();
