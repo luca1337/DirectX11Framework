@@ -29,16 +29,17 @@ vs_out main(vs_in IN)
 {
     vs_out OUT;
 
-	OUT.world_position = mul(model, float4(IN.in_position, 1)).xyz;
-	OUT.world_normal = mul(model, float4(IN.in_normal, 0));
-    OUT.world_tangent = mul(model, float4(IN.in_tangent, 0));
-    OUT.world_tangent = normalize(OUT.world_tangent);
-    OUT.world_bitangent = mul(model, float4(IN.in_bitangent, 0));
-    OUT.world_bitangent = normalize(OUT.world_bitangent);
-	OUT.out_position = mul(projection, mul(view, float4(OUT.world_position, 1)));
+    IN.in_position.x /= 1.25f;
 
+	OUT.world_position      = mul(model, float4(IN.in_position, 1)).xyz;
+	OUT.world_normal        = mul(model, float4(IN.in_normal, 0));
+    OUT.world_tangent       = mul(model, float4(IN.in_tangent, 0));
+    OUT.world_tangent       = normalize(OUT.world_tangent);
+    OUT.world_bitangent     = mul(model, float4(IN.in_bitangent, 0));
+    OUT.world_bitangent     = normalize(OUT.world_bitangent);
+	OUT.out_position        = mul(projection, mul(view, float4(OUT.world_position, 1)));
 
-	OUT.world_uv = IN.in_uv;
+	OUT.world_uv            = IN.in_uv;
 
     return OUT;
 }

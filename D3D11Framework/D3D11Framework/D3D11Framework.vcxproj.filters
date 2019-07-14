@@ -375,6 +375,12 @@
     <ClInclude Include="ForceMode.h">
       <Filter>Engine\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowMapMVP.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenMesh.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="cubemap_pixel_hlsl.hlsl">
@@ -399,6 +405,12 @@
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="collider_pixel.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="sprite_vertex.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="sprite_pixel.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

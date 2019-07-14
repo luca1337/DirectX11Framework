@@ -8,3 +8,6 @@
 
 #include "collider_vertex.h"
 #include "collider_pixel.h"
+
+#include "sprite_vs.h"
+#include "sprite_ps.h"

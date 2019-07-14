@@ -38,6 +38,8 @@
 
 #include "Time.h"
 
+#include <SpriteBatch.h>
+
 #define COLLIDERS
 
 int main(int argc, char** argv)
@@ -72,12 +74,12 @@ int main(int argc, char** argv)
 
 	Light point_light01 = {};
 	point_light01.SetLightType(eLightType::POINT_LIGHT);
-	point_light01.SetPosition({ -30.0f, 10.0f, 0.0f });
+	point_light01.SetPosition({ -30.0f, 50.0f, 80.0f });
 	point_light01.SetAttenuation({ 1.0f, 0.08f, 0.0f });
-	point_light01.SetColor({ 0.0f, 1.0f, 1.0f, 1.0f });
-	point_light01.SetRange(4.0f);
-	point_light01.SetIntensity(3.0f);
-	point_light01.SetActive(false);
+	point_light01.SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	point_light01.SetRange(2.0f);
+	point_light01.SetIntensity(2.0f);
+	point_light01.SetActive(true);
 
 	graphics.AddLight({ directional_light, point_light00, point_light01 });
 
@@ -207,7 +209,7 @@ int main(int argc, char** argv)
 
 	// - Sphere 1 
 	auto sphere00 = std::make_shared<Sphere>();
-	sphere00->transform->location = SimpleMath::Vector3(0.0f, 0.0f, 0.0f);
+	sphere00->transform->location = SimpleMath::Vector3(0.0f, 0.0f, 15.0f);
 	sphere00->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
 	auto render_component00 = sphere00->GetComponent<MeshRenderer>();
 	render_component00->AssignMaterial(red_plastic_material);
@@ -216,7 +218,7 @@ int main(int argc, char** argv)
 
 	// - Sphere 2
 	auto sphere01 = std::make_shared<Sphere>();
-	sphere01->transform->location = SimpleMath::Vector3(15.0f, 0.0f, 0.0f);
+	sphere01->transform->location = SimpleMath::Vector3(15.0f, 0.0f, 15.0f);
 	sphere01->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
 	auto render_component01 = sphere01->GetComponent<MeshRenderer>();
 	render_component01->AssignMaterial(cyan_plastic_material);
@@ -225,7 +227,7 @@ int main(int argc, char** argv)
 
 	// - Sphere 3
 	auto sphere02 = std::make_shared<Sphere>();
-	sphere02->transform->location = SimpleMath::Vector3(30.0f, 0.0f, 0.0f);
+	sphere02->transform->location = SimpleMath::Vector3(30.0f, 0.0f, 15.0f);
 	sphere02->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
 	auto render_component02 = sphere02->GetComponent<MeshRenderer>();
 	render_component02->AssignMaterial(jade_material);
@@ -236,7 +238,7 @@ int main(int argc, char** argv)
 
 	// - Sphere 4
 	auto sphere03 = std::make_shared<Sphere>();
-	sphere03->transform->location = SimpleMath::Vector3(-30.0, 0.0f, 0.0f);
+	sphere03->transform->location = SimpleMath::Vector3(-30.0, 0.0f, 15.0f);
 	sphere03->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
 	auto render_component03 = sphere03->GetComponent<MeshRenderer>();
 	render_component03->SetAlbedo("abstract_a");
@@ -247,7 +249,7 @@ int main(int argc, char** argv)
 
 	// - Sphere 5
 	auto sphere04 = std::make_shared<Sphere>();
-	sphere04->transform->location = SimpleMath::Vector3(-45.0, 0.0f, 0.0f);
+	sphere04->transform->location = SimpleMath::Vector3(-45.0, 0.0f, 15.0f);
 	sphere04->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
 	auto render_component04 = sphere04->GetComponent<MeshRenderer>();
 	render_component04->SetAlbedo("organic_a");
@@ -258,13 +260,45 @@ int main(int argc, char** argv)
 
 	// - Sphere 6
 	auto sphere05 = std::make_shared<Sphere>();
-	sphere05->transform->location = SimpleMath::Vector3(-60.0, 0.0f, 0.0f);
+	sphere05->transform->location = SimpleMath::Vector3(-60.0, 0.0f, 15.0f);
 	sphere05->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
 	auto render_component05 = sphere05->GetComponent<MeshRenderer>();
 	render_component05->SetAlbedo("metal_raw_a");
 	render_component05->SetNormal("metal_raw_n");
 	render_component05->AssignMaterial(textured_chrome_material);
 	world.SpawnActor(sphere05);
+	// - End
+
+	// SPAWN SOME SHAPES SO THAT WE CAN SIMULATE PHYSX by NVIDIA
+
+	std::vector<std::shared_ptr<Sphere>> physx_spheres = std::vector<std::shared_ptr<Sphere>>(40);
+
+	auto start_location = SimpleMath::Vector3(-60.0, 105.0f, 100.0f);
+
+	float offset = 11.0f;
+
+	for (size_t i = 0; i < physx_spheres.size(); i++)
+	{
+		physx_spheres[i] = std::make_shared<Sphere>();
+
+		physx_spheres[i]->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
+
+		physx_spheres[i]->transform->location = start_location;
+
+		physx_spheres[i]->transform->location += SimpleMath::Vector3(i % 5 * offset, i / 5 * (-offset), 0.0f);
+
+		// Add rigidbody component
+		auto physx_rb = std::make_shared<RigidBody>(*physx_spheres[i], 1.0f, eRigidBodyType::DYNAMIC);
+		physx_spheres[i]->AddComponent<RigidBody>(physx_rb);
+
+		// assign material
+		auto physx_material = physx_spheres[i]->GetComponent<MeshRenderer>();
+		physx_material->SetAlbedo("wood_a");
+		physx_material->SetNormal("wood_n");
+		physx_material->AssignMaterial(textured_chrome_material);
+
+		world.SpawnActor(physx_spheres[i]);
+	}
 	// - End
 
 	// Keyboard tracking
