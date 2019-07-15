@@ -1,7 +1,7 @@
 # DirectX11Framework
 A DirectX 11 component-based Engine entirely written in C++ ( WIN32)
 
-This Engine only works for Win32 platforms and it's not written to work on xbox platform, for that i have another version of it that works on both pc and xbox, the main reason that brought me to have two different version it's because the Win32 version has more flexibility with the code so i can write and test things that i can port on xbox too and less struggle with this API.
+This Engine only works for Win32 platforms and it's not written to work on xbox platform, for that i have another version of it that works on both pc and xbox, the main reason that brought me to have two different version it's because the Win32 version has more flexibility with the code so i can write and test things that i could port on xbox too and less struggle with this API.
 
 Physx engine:
 
