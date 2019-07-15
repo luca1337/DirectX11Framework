@@ -5,11 +5,13 @@ This Engine only works for Win32 platforms and it's not written to work on xbox 
 
 Physx engine:
 
--Yes i'm using physx because it's awesome and not really hard integrate it.
+- Yes i'm using physx because it's awesome, full, has everything about and itì's easy to integrate it.
+- i cannot post the screen because it is a private repository.
 
 Rendering Pipeline:
 
--D3D11 as mentioned above supporting 11.0 and 11.1 DirectX versions.
+- D3D11 as mentioned above supporting 11.0 and 11.1 DirectX versions.
+- well if you got windows you just need to include dxgi libraries.
 
 Other Tools:
 
