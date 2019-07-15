@@ -36,7 +36,7 @@ void d3d_engine::Physix::InitPhysix()
 	CustomSimulationEvent* evt = new CustomSimulationEvent();
 
 	auto scene_desc = physx::PxSceneDesc(physics->getTolerancesScale());
-	scene_desc.gravity = physx::PxVec3(0, -9.81, 0);
+	scene_desc.gravity = physx::PxVec3(0, -9.81f, 0);
 	scene_desc.cpuDispatcher = dispatcher;
 	scene_desc.simulationEventCallback = evt;
 	scene_desc.filterShader = FooShader;

@@ -10,7 +10,7 @@ SphereCollider::SphereCollider(Actor & owner) : Collider(owner, eColliderType::e
 	physics_material = d3d_engine::Physix::Get().GetPxPhysics()->createMaterial(static_friction, dynamic_friction, bounciness);
 
 	//todo: the radius MUST be correct here even if we update it on tick later
-	sphere_geometry = std::make_shared<physx::PxSphereGeometry>(5);
+	sphere_geometry = std::make_shared<physx::PxSphereGeometry>(5.0f);
 
 	shape = d3d_engine::Physix::Get().GetPxPhysics()->createShape(*sphere_geometry, *physics_material, true);
 }

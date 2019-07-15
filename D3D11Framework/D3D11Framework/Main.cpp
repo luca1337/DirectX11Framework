@@ -77,11 +77,20 @@ int main(int argc, char** argv)
 	point_light01.SetPosition({ -30.0f, 50.0f, 80.0f });
 	point_light01.SetAttenuation({ 1.0f, 0.08f, 0.0f });
 	point_light01.SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
-	point_light01.SetRange(2.0f);
+	point_light01.SetRange(3.0f);
 	point_light01.SetIntensity(2.0f);
 	point_light01.SetActive(true);
 
-	graphics.AddLight({ directional_light, point_light00, point_light01 });
+	Light point_light02 = {};
+	point_light02.SetLightType(eLightType::POINT_LIGHT);
+	point_light02.SetPosition({ -30.0f, 50.0f, 120.0f });
+	point_light02.SetAttenuation({ 1.0f, 0.08f, 0.0f });
+	point_light02.SetColor({ .0f, 1.0f, 1.0f, 1.0f });
+	point_light02.SetRange(2.0f);
+	point_light02.SetIntensity(2.0f);
+	point_light02.SetActive(true);
+
+	graphics.AddLight({ directional_light, point_light00, point_light01, point_light02 });
 
 	// Mesh creation
 	std::shared_ptr<Mesh> mesh01 = std::make_shared<Mesh>("Assets/Models/cube.txt");
@@ -125,8 +134,8 @@ int main(int argc, char** argv)
 	// create some players and spawn them
 	std::shared_ptr<Player> player00 = std::make_shared<Player>("Assets/Models/cube.txt");
 	player00->transform->location = { 0.0f, -10.0f, 0.0f };
-	player00->transform->rotation = { 0.0f, 0.0f, 0.0f };
-	player00->transform->scale = { 300.0f, 5.0f, 300.0f };
+	player00->transform->rotation = { 0.0f, -0.5f, 0.0f };
+	player00->transform->scale = { 600.0f, 5.0f, 600.0f };
 
 	// create a new material
 	auto marble_material = std::make_shared<Material>();
@@ -308,6 +317,27 @@ int main(int argc, char** argv)
 	}
 	// - End
 
+	// Create a physics ball so that we can shoot against other balls
+
+	// - Sphere 7
+	auto sphere06 = std::make_shared<Sphere>();
+	sphere06->transform->location = SimpleMath::Vector3(-45.0, 40.0f, 20.0f);
+	sphere06->transform->scale = SimpleMath::Vector3(5.0f, 5.0f, 5.0f);
+
+	auto sphere06_collider = std::make_shared<SphereCollider>(*sphere06);
+	sphere06->AddComponent(sphere06_collider);
+
+	auto sphere06_rigidbody = std::make_shared<RigidBody>(*sphere06, 10.0f, eRigidBodyType::DYNAMIC);
+	sphere06_rigidbody->SetUseGravity(true);
+	sphere06->AddComponent(sphere06_rigidbody);
+
+	auto render_component06 = sphere06->GetComponent<MeshRenderer>();
+	render_component06->SetAlbedo("metal_raw_a");
+	render_component06->SetNormal("metal_raw_n");
+	render_component06->AssignMaterial(textured_chrome_material);
+	world.SpawnActor(sphere06);
+	// - End
+
 	// Keyboard tracking
 	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();
 	DirectX::Keyboard::KeyboardStateTracker tracker;
@@ -328,6 +358,11 @@ int main(int argc, char** argv)
 		graphics.Clear();
 
 		skydome->Render();
+
+		if (state.IsKeyDown(DirectX::Keyboard::Space))
+		{
+			sphere06_rigidbody->AddForce(SimpleMath::Vector3(0.0f, 0.0f, 40.0f), eForceMode::eFORCE);
+		}
 
 		graphics.GetMainCamera()->Update(state);
 

@@ -29,9 +29,7 @@ vs_out main(vs_in IN)
 {
     vs_out OUT;
 
-    IN.in_position.x /= 1.25f;
-
-	OUT.world_position      = mul(model, float4(IN.in_position, 1)).xyz;
+	OUT.world_position      = mul(model, float4(float3(IN.in_position.x, IN.in_position.y, IN.in_position.z), 1)).xyz;
 	OUT.world_normal        = mul(model, float4(IN.in_normal, 0));
     OUT.world_tangent       = mul(model, float4(IN.in_tangent, 0));
     OUT.world_tangent       = normalize(OUT.world_tangent);

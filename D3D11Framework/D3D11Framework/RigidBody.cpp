@@ -7,42 +7,15 @@
 
 unsigned int RigidBody::Type = 0;
 
-static void QuatToEuler(const physx::PxQuat& quat, float& rotx, float& roty, float& rotz)
-{
-	double sqw;
-	double sqx;
-	double sqy;
-	double sqz;
-
-	double rotxrad;
-	double rotyrad;
-	double rotzrad;
-
-	sqw = quat.w * quat.w;
-	sqx = quat.x * quat.x;
-	sqy = quat.y * quat.y;
-	sqz = quat.z * quat.z;
-
-	rotxrad = (double)atan2l(2.0 * (quat.y * quat.z + quat.x * quat.w), (-sqx - sqy + sqz + sqw));
-	rotyrad = (double)asinl(-2.0 * (quat.x * quat.z - quat.y * quat.w));
-	rotzrad = (double)atan2l(2.0 * (quat.x * quat.y + quat.z * quat.w), (sqx - sqy - sqz + sqw));
-
-	rotx = rotxrad;
-	roty = rotyrad;
-	rotz = rotzrad;
-
-	return;
-}
-
-static physx::PxQuat EulerToQuat(double yaw, double pitch, double roll) // yaw (Z), pitch (Y), roll (X)
+static physx::PxQuat EulerToQuat(float yaw, float pitch, float roll) // yaw (Z), pitch (Y), roll (X)
 {
 	// Abbreviations for the various angular functions
-	double cy = cos(yaw * 0.5);
-	double sy = sin(yaw * 0.5);
-	double cp = cos(pitch * 0.5);
-	double sp = sin(pitch * 0.5);
-	double cr = cos(roll * 0.5);
-	double sr = sin(roll * 0.5);
+	float cy = (float)cos((float)yaw * 0.5);
+	float sy = (float)sin((float)yaw * 0.5);
+	float cp = (float)cos((float)pitch * 0.5);
+	float sp = (float)sin((float)pitch * 0.5);
+	float cr = (float)cos((float)roll * 0.5);
+	float sr = (float)sin((float)roll * 0.5);
 
 	physx::PxQuat q;
 	q.w = cy * cp * cr + sy * sp * sr;
