@@ -13,9 +13,11 @@ Rendering Pipeline:
 
 Other Tools:
 
--DirectXTK the toolkit helper that wraps and ease many DirectX functions like XMINTRINSIC functions, other like keyboard events to handle input, SpriteBatch for sprite2D rendering and so on.. -> https://github.com/microsoft/DirectXTK. this is an awesome wrapper i love it
+- DirectXTK the toolkit helper that wraps and ease many DirectX functions like XMINTRINSIC functions, other like keyboard events to handle input, SpriteBatch for sprite2D rendering and so on.. -> https://github.com/microsoft/DirectXTK. this is an awesome wrapper i love it
 
-- Below there are a few screenshot of the engine, hope you enjoy it! :P
+-----------------------------------------------------------------------------
+
+Below there are a few screenshot of the engine, hope you enjoy it! :P
 
 ![ss0](https://user-images.githubusercontent.com/7602472/61190974-f06c7d80-a6a4-11e9-8522-d097cda94e69.png)
 
