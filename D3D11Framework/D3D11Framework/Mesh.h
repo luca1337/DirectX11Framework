@@ -74,7 +74,7 @@ private:
 	const std::shared_ptr<Material> default_material = std::make_shared<Material>
 		(
 			SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
-			SimpleMath::Vector4(0.1f, 0.1f, 0.1f, 1.0f),
+			SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 1.0f),
 			SimpleMath::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 			SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 0.0f),
 			32.0f,

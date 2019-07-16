@@ -3,6 +3,7 @@
 #include <memory>
 #include <CommonStates.h>
 
+enum BlendMode;
 class Adapter;
 struct ID3D11BlendState;
 struct ID3D11Device5;
@@ -18,26 +19,20 @@ public:
 	Device(std::shared_ptr<Adapter> adapter);
 
 	void Draw(unsigned int vertices_num);
-
 	void TurnOffCulling();
-
 	void TurnOnBackCulling();
-
 	void TurnOnWireframeRendering();
-
 	void TurnOffWireframeRendering();
-
 	void TurnOffZBuffer();
-
 	void TurnOnZBuffer();
+	void TurnOnDepthRead();
+	void TurnOffDepthRead();
+	void SetBlendMode(BlendMode blend_mode);
 
 	ID3D11Device5* GetDXHandle();
-
 	ID3D11DeviceContext4* GetDXContext();
-
 	std::unique_ptr<DirectX::CommonStates> states; // RAII
 private:
-
 	
 	void CreateRasterizerState(D3D11_RASTERIZER_DESC rs_desc);
 

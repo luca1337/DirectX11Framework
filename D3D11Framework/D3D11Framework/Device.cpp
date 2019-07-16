@@ -1,4 +1,5 @@
 #include "Device.h"
+#include "BlendMode.h"
 
 #include "Core.h"
 #include "Adapter.h"
@@ -35,7 +36,7 @@ Device::Device(std::shared_ptr<Adapter> adapter)
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// After the topology we can start by configuring the "common states" that we are
-	// going to use on our render pipeline in order to have different effects on each draw-call
+	// going to use on our render pipeline in order to have different effects
 
 	// - Initialize states
 	states = std::make_unique<DirectX::CommonStates>(device);
@@ -87,6 +88,32 @@ void Device::TurnOffZBuffer()
 void Device::TurnOnZBuffer()
 {
 	context->OMSetDepthStencilState(states->DepthDefault(), 0);
+}
+
+void Device::TurnOnDepthRead()
+{
+	context->OMSetDepthStencilState(states->DepthRead(), 0);
+}
+
+void Device::TurnOffDepthRead()
+{
+}
+
+void Device::SetBlendMode(BlendMode blend_mode)
+{
+	const float blend_factor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+	switch (blend_mode)
+	{
+	case eOPAQUE:
+		context->OMSetBlendState(states->Opaque(), blend_factor, 0xFFFFFFFF);
+		break;
+	case eTRANSPARENT:
+		context->OMSetBlendState(states->AlphaBlend(), blend_factor, 0xFFFFFFFF);
+		break;
+	default:
+		break;
+	}
 }
 
 ID3D11Device5 * Device::GetDXHandle()

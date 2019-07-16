@@ -76,9 +76,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>DxStuff\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>DxStuff\Source</Filter>
     </ClCompile>
@@ -208,6 +205,15 @@
     <ClCompile Include="Time.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshShape.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adapter.h">
@@ -247,9 +253,6 @@
       <Filter>DxStuff\Headers</Filter>
     </ClInclude>
     <ClInclude Include="ShaderObject.h">
-      <Filter>DxStuff\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
       <Filter>DxStuff\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
@@ -381,6 +384,21 @@
     <ClInclude Include="ScreenMesh.h">
       <Filter>Engine\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBuffer.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshShape.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendMode.h">
+      <Filter>DxStuff\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="cubemap_pixel_hlsl.hlsl">
@@ -511,6 +529,12 @@
       <Filter>Assets\Textures</Filter>
     </Image>
     <Image Include="Assets\Textures\megaj.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\BoltPW.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\grid.png">
       <Filter>Assets\Textures</Filter>
     </Image>
   </ItemGroup>

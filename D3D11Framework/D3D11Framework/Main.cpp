@@ -40,6 +40,8 @@
 
 #include <SpriteBatch.h>
 
+#include "Sprite.h"
+
 #define COLLIDERS
 
 int main(int argc, char** argv)
@@ -125,6 +127,7 @@ int main(int argc, char** argv)
 	TextureManager::AddTexture("Assets/Textures/marble_normal.jpg", "marble_n");
 
 	TextureManager::AddTexture("Assets/Textures/megaj.png", "jump");
+	TextureManager::AddTexture("Assets/Textures/BoltPW.png", "bolt");
 
 	// -End
 
@@ -338,6 +341,12 @@ int main(int argc, char** argv)
 	world.SpawnActor(sphere06);
 	// - End
 
+	//2D sprite on 3D world space
+
+	auto tex = std::make_shared<Texture>("Assets/Textures/grid.png");
+
+	Sprite sprite = Sprite();
+
 	// Keyboard tracking
 	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();
 	DirectX::Keyboard::KeyboardStateTracker tracker;
@@ -359,9 +368,11 @@ int main(int argc, char** argv)
 
 		skydome->Render();
 
+		sprite.DrawTextured(tex);
+
 		if (state.IsKeyDown(DirectX::Keyboard::Space))
 		{
-			sphere06_rigidbody->AddForce(SimpleMath::Vector3(0.0f, 0.0f, 40.0f), eForceMode::eFORCE);
+			sphere06_rigidbody->AddForce(SimpleMath::Vector3(0.0f, 0.0f, 40.0f), eForceMode::eIMPULSE);
 		}
 
 		graphics.GetMainCamera()->Update(state);

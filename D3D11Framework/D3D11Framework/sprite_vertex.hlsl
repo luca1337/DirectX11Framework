@@ -8,7 +8,7 @@ cbuffer matrices : register(b0)
 
 struct vs_in
 {
-    float3 position : POSITIONS;
+    float3 position : VERTICES;
     float3 normal   : NORMALS;
     float2 uv       : UVS;
 };
