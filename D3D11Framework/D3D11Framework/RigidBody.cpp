@@ -1,5 +1,5 @@
 #include "RigidBody.h"
-#include "Physix.h"
+#include "Physics.h"
 #include "Actor.h"
 #include "Transform.h"
 #include "BoxCollider.h"
@@ -28,7 +28,7 @@ static physx::PxQuat EulerToQuat(float yaw, float pitch, float roll) // yaw (Z),
 RigidBody::RigidBody(Actor& owner, float mass, eRigidBodyType rb_type) : owner(owner)
 {
 	// Get PX
-	auto px = d3d_engine::Physix::Get();
+	auto& px = Physics::Get();
 
 	this->mass = mass;
 	current_type = rb_type;

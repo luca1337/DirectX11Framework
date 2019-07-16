@@ -178,7 +178,9 @@
     <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshShape.cpp" />
-    <ClCompile Include="Physix.cpp" />
+    <ClCompile Include="PhysicsMaterial.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -194,6 +196,8 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UpdateSystem.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
@@ -213,6 +217,11 @@
     <ClInclude Include="DepthTarget.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DX.h" />
+    <ClInclude Include="DX11FWAllocator.h" />
+    <ClInclude Include="DX11FWDispatcher.h" />
+    <ClInclude Include="DX11FWErrorCallback.h" />
+    <ClInclude Include="DX11FWShaderFilter.h" />
+    <ClInclude Include="DX11FWSimulationEvent.h" />
     <ClInclude Include="DxMenu.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
@@ -230,6 +239,7 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="ISystem.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
@@ -237,7 +247,9 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshShape.h" />
     <ClInclude Include="Mvp.h" />
-    <ClInclude Include="Physix.h" />
+    <ClInclude Include="PhysicsMaterial.h" />
+    <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderTarget.h" />
@@ -256,6 +268,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UpdateSystem.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />

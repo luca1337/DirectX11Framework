@@ -71,6 +71,15 @@
     <Filter Include="Engine\Source\Shapes">
       <UniqueIdentifier>{7455be06-c5e5-4e6e-98b2-2bfe481c36bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Headers\Systems">
+      <UniqueIdentifier>{f18048ab-6ded-444c-9829-caf0ff63b76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source\Systems">
+      <UniqueIdentifier>{0923fae0-fe24-4ea3-98b9-3fb88bac4ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Headers\NVPhysx">
+      <UniqueIdentifier>{237b8406-e364-4854-9647-249be9836e07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -154,9 +163,6 @@
     <ClCompile Include="RigidBody.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Physix.cpp">
-      <Filter>Engine\Source\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Engine\Source\Physics</Filter>
     </ClCompile>
@@ -212,6 +218,21 @@
       <Filter>Engine\Source</Filter>
     </ClCompile>
     <ClCompile Include="MeshShape.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateSystem.cpp">
+      <Filter>Engine\Source\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Engine\Source\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsMaterial.cpp">
+      <Filter>Engine\Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -342,9 +363,6 @@
     <ClInclude Include="Enums.h">
       <Filter>Engine\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Physix.h">
-      <Filter>Engine\Headers\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Engine\Headers\Physics</Filter>
     </ClInclude>
@@ -398,6 +416,36 @@
     </ClInclude>
     <ClInclude Include="BlendMode.h">
       <Filter>DxStuff\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateSystem.h">
+      <Filter>Engine\Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystem.h">
+      <Filter>Engine\Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>Engine\Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Engine\Headers\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11FWSimulationEvent.h">
+      <Filter>Engine\Headers\NVPhysx</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11FWAllocator.h">
+      <Filter>Engine\Headers\NVPhysx</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11FWErrorCallback.h">
+      <Filter>Engine\Headers\NVPhysx</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11FWDispatcher.h">
+      <Filter>Engine\Headers\NVPhysx</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11FWShaderFilter.h">
+      <Filter>Engine\Headers\NVPhysx</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsMaterial.h">
+      <Filter>Engine\Headers\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

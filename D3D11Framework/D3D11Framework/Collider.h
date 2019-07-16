@@ -45,7 +45,6 @@ protected:
 	// Physx variables
 	std::shared_ptr<physx::PxBoxGeometry> box_geometry;
 	std::shared_ptr<physx::PxSphereGeometry> sphere_geometry;
-	physx::PxMaterial* physics_material;
 	physx::PxShape* shape;
 
 	const float half_extent_size	= 0.5f;

@@ -25,7 +25,7 @@
 #include "RotatorComponent.h"
 
 #include "RigidBody.h"
-#include "Physix.h"
+#include "Physics.h"
 
 #include "TextureManager.h"
 
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 	graphics.Initialize("D3DFramework", 1280, 1024, 1280 / 1024);
 
 	// init physics pipeline
-	d3d_engine::Physix& physics = d3d_engine::Physix::Get();
+	Physics& physics = Physics::Get();
 	physics.InitPhysix();
 
 	// Setup some light

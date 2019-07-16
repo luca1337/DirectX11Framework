@@ -21,7 +21,7 @@
 #include "Light.h"
 
 #include "World.h"
-#include "Physix.h"
+#include "Physics.h"
 
 DWORD Graphics::previous_time = 0;
 float Graphics::max_time_steps = 0;
@@ -139,7 +139,7 @@ void Graphics::Clear()
 
 	delta_time = CalculateDeltaTime();
 
-	d3d_engine::Physix::Get().UpdatePhysx(delta_time);
+	Physics::Get().UpdatePhysx(delta_time);
 }
 
 void Graphics::Present()
