@@ -108,7 +108,7 @@ void Graphics::Initialize(std::string title, unsigned width, unsigned height, fl
 	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();
 
 	// DEPTH STENCIL
-	depth_texture = std::make_shared<Texture>(1280, 1024, DXGI_FORMAT_D24_UNORM_S8_UINT);
+	depth_texture = std::make_shared<Texture>(800, 800, DXGI_FORMAT_D24_UNORM_S8_UINT);
 	depth_target = std::make_shared<DepthTarget>(depth_texture);
 	render_target->Bind(depth_target);
 
@@ -119,12 +119,9 @@ void Graphics::Initialize(std::string title, unsigned width, unsigned height, fl
 	main_camera->SetRotation(0.0f, 0.0f, 0.0f);
 }
 
-void Graphics::AddLight(std::initializer_list<Light> light)
+void Graphics::AddLight(Light& light)
 {
-	for (auto It = light.begin(); It != light.end(); ++It)
-	{
-		lights.push_back(*It);
-	}
+		lights.push_back(light);
 }
 
 std::shared_ptr<Camera> Graphics::GetMainCamera() const

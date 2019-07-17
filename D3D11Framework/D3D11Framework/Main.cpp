@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 
 	// init graphics pipeline
 	Graphics& graphics = Graphics::Singleton();
-	graphics.Initialize("D3DFramework", 1280, 1024, 1280 / 1024);
+	graphics.Initialize("D3DFramework", 800, 800, 800 / 800);
 
 	// init physics pipeline
 	Physics& physics = Physics::Get();
@@ -92,12 +92,9 @@ int main(int argc, char** argv)
 	point_light02.SetIntensity(2.0f);
 	point_light02.SetActive(true);
 
-	graphics.AddLight({ directional_light, point_light00, point_light01, point_light02 });
-
-	// Mesh creation
-	std::shared_ptr<Mesh> mesh01 = std::make_shared<Mesh>("Assets/Models/cube.txt");
-	mesh01->Scale(300.0f, 0.0f, 300.0f);
-	mesh01->SetPosition({ 0.0f, -10.0f, 0.0f });
+	graphics.AddLight(directional_light);
+	graphics.AddLight(point_light00);
+	graphics.AddLight(point_light01);
 
 	engine.RegisterComponent<Transform>();
 	engine.RegisterComponent<RigidBody>();

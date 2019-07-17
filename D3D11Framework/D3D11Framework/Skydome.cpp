@@ -12,7 +12,7 @@
 Skydome::Skydome(const std::string& skydome_file)
 {
 	skydome_mesh = std::make_shared<Mesh>(skydome_file);
-	skydome_mesh->Scale(2.5f, 1.5f, 2.5f);
+	skydome_mesh->mesh_scale = { 2.5f, 1.5f, 2.5f };
 
 	skydome_vs = ShaderManager::GetVertexShaderResourceFromMemory("skydome_vertex");
 	skydome_ps = ShaderManager::GetPixelShaderResourceFromMemory("skydome_pixel");
@@ -40,11 +40,11 @@ void Skydome::Render()
 
 	Engine::Singleton().GetDxDevice()->TurnOnZBuffer();
 
-	skydome_mesh->SetPosition(
+	skydome_mesh->mesh_position = {
 		Graphics::Singleton().GetMainCamera()->GetPosition().x,
 		Graphics::Singleton().GetMainCamera()->GetPosition().y,
 		Graphics::Singleton().GetMainCamera()->GetPosition().z
-	);
+	};
 
 	basic_vs->Bind();
 	basic_ps->Bind();

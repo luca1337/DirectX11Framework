@@ -13,7 +13,9 @@
 
 Sprite::Sprite(float width, float height)
 {
-	float vertices[] =
+	vertices_count = 6;
+
+	float sprite_vertices[] =
 	{
 		-1, 1, 0,
 		1, 1, 0,
@@ -24,14 +26,14 @@ Sprite::Sprite(float width, float height)
 		-1, -1, 0
 	};
 
-	float normals[] =
+	float sprite_normals[] =
 	{
 		0, 1, 0,
 		0, 1, 0,
 		0, 1, 0
 	};
 
-	float uvs[] = 
+	float sprite_uvs[] =
 	{
 		0, 1,
 		1, 1,
@@ -42,11 +44,9 @@ Sprite::Sprite(float width, float height)
 		0, 0
 	};
 
-	PushGPUBuffer(sizeof(vertices), sizeof(float) * 3, vertices);
-	PushGPUBuffer(sizeof(normals), sizeof(float) * 3, normals);
-	PushGPUBuffer(sizeof(uvs), sizeof(float) * 2, uvs);
-
-	vertices_count = 6;
+	PushGPUBuffer(sizeof(sprite_vertices), sizeof(float) * 3, sprite_vertices);
+	PushGPUBuffer(sizeof(sprite_normals), sizeof(float) * 3, sprite_normals);
+	PushGPUBuffer(sizeof(sprite_uvs), sizeof(float) * 2, sprite_uvs);
 
 	mesh_mvp_buffer = std::make_shared<GPUConstBuffer>(Engine::Singleton().GetDxDevice(), static_cast<unsigned int>(sizeof(Mvp)));
 
@@ -69,7 +69,7 @@ void Sprite::Draw()
 
 	sprite_gpu_buffer->BindInPixel(0, &sprite_buffer, 1);
 
-	MeshShape::DrawMesh();
+	MeshShape::DrawMesh(vertices_count);
 
 	ShaderManager::GetVertexShaderResourceFromMemory("basic_vertex")->Bind();
 	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();
@@ -89,7 +89,7 @@ void Sprite::DrawTextured(std::shared_ptr<Texture> texture)
 
 	sprite_gpu_buffer->BindInPixel(0, &sprite_buffer, 1);
 
-	MeshShape::DrawMesh();
+	MeshShape::DrawMesh(vertices_count);
 
 	if (texture)
 		texture->GetShaderObject()->Unbind(0);

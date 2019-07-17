@@ -8,22 +8,13 @@
 #include "ShaderObject.h"
 #include "Texture.h"
 
-MeshShape::MeshShape() : mesh_mvp { }
-{
-}
-
-MeshShape::~MeshShape()
-{
-
-}
-
 void MeshShape::PushGPUBuffer(unsigned int size, unsigned int stride, void * buf_data)
 {
 	auto gpu_buffer = std::make_shared<GPUBuffer>(Engine::Singleton().GetDxDevice(), size, stride, buf_data);
 	this->buffers.push_back(gpu_buffer);
 }
 
-void MeshShape::DrawMesh()
+void MeshShape::DrawMesh(unsigned int vertices_count)
 {
 	UpdateMeshMatrix();
 
@@ -35,7 +26,7 @@ void MeshShape::DrawMesh()
 	}
 	
 	// Draw-Call!
-	Engine::Singleton().GetDxDevice()->GetDXContext()->Draw(6, 0);
+	Engine::Singleton().GetDxDevice()->GetDXContext()->Draw(vertices_count, 0);
 }
 
 void MeshShape::UpdateMeshMatrix()

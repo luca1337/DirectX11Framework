@@ -16,10 +16,11 @@ public:
 	void Draw();
 	void DrawTextured(std::shared_ptr<Texture> texture);
 
+	unsigned int vertices_count;
+
 private:
 	SpriteBuffer sprite_buffer;
 	std::shared_ptr<GPUConstBuffer> sprite_gpu_buffer;
 	float width;
 	float height;
-	unsigned int vertices_count;
 };

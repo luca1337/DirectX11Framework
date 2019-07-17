@@ -25,7 +25,7 @@ public:
 
 	void Initialize(std::string title, unsigned width, unsigned height, float aspect_ratio);
 
-	void AddLight(std::initializer_list<Light> lights);
+	void AddLight(Light& light);
 
 	void Clear();
 

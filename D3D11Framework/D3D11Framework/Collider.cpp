@@ -7,6 +7,7 @@
 #include "VertexShader.h"
 #include "Engine.h"
 #include "Device.h"
+#include "Transform.h"
 #include <algorithm>
 
 unsigned int Collider::Type = 0;
@@ -16,16 +17,16 @@ Collider::Collider(Actor& owner, eColliderType collider_type) : owner(owner), co
 	if (collider_type == eColliderType::eBOX)
 	{
 		collider_mesh = std::make_shared<Mesh>("Assets/Models/cube.txt");
-		collider_mesh->SetScale(owner.transform->scale);
-		collider_mesh->SetPosition(owner.transform->location);
-		collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->mesh_scale = owner.transform->scale;
+		collider_mesh->mesh_position = owner.transform->location;
+		collider_mesh->mesh_rotation = owner.transform->rotation;
 	}
 	else
 	{
 		collider_mesh = std::make_shared<Mesh>("Assets/Models/sphere.txt");
-		collider_mesh->SetScale(owner.transform->scale);
-		collider_mesh->SetPosition(owner.transform->location);
-		collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->mesh_scale = owner.transform->scale;
+		collider_mesh->mesh_position = owner.transform->location;
+		collider_mesh->mesh_rotation = owner.transform->rotation;
 
 		scales.push_back(owner.transform->scale.x);
 		scales.push_back(owner.transform->scale.y);
@@ -48,7 +49,7 @@ Collider::Collider(Actor& owner, eColliderType collider_type) : owner(owner), co
 Collider::Collider(Actor& owner, const float radius) : owner(owner)
 {
 	collider_mesh = std::make_shared<Mesh>("Assets/Models/sphere.txt");
-	collider_mesh->Scale(owner.transform->scale.x, owner.transform->scale.y, owner.transform->location.z);
+	collider_mesh->mesh_scale = { owner.transform->scale.x, owner.transform->scale.y, owner.transform->location.z };
 }
 
 physx::PxShape * Collider::GetShape()
@@ -75,9 +76,9 @@ void Collider::Tick(float delta_time)
 
 	if (collider_type == eColliderType::eBOX)
 	{
-		collider_mesh->SetScale(owner.transform->scale);
-		collider_mesh->SetPosition(owner.transform->location);
-		collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->mesh_scale = owner.transform->scale;
+		collider_mesh->mesh_position = owner.transform->location;
+		collider_mesh->mesh_rotation = owner.transform->rotation;
 	}
 	else
 	{
@@ -95,9 +96,9 @@ void Collider::Tick(float delta_time)
 		std::sort(scales.begin(), scales.end());
 		radius = scales[scales.size() - 1];
 
-		collider_mesh->SetScale(radius, radius, radius);
-		collider_mesh->SetPosition(owner.transform->location);
-		collider_mesh->SetRotation(owner.transform->rotation);
+		collider_mesh->mesh_scale = owner.transform->scale;
+		collider_mesh->mesh_position = owner.transform->location;
+		collider_mesh->mesh_rotation = owner.transform->rotation;
 	}
 
 #ifdef COLLIDERS
@@ -105,7 +106,6 @@ void Collider::Tick(float delta_time)
 	collider_mesh->Draw();
 
 #endif
-
 
 	Engine::Singleton().GetDxDevice()->TurnOffWireframeRendering();
 

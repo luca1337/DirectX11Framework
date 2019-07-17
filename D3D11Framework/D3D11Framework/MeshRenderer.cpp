@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "Actor.h"
 #include "TextureManager.h"
+#include "Transform.h"
 
 unsigned int MeshRenderer::Type = 0;
 
@@ -19,9 +20,9 @@ void MeshRenderer::BeginPlay()
 void MeshRenderer::Tick(float delta_time)
 {
 	// set the transform
-	mesh->SetPosition(owner.transform->location);
-	mesh->SetRotation(owner.transform->rotation);
-	mesh->SetScale(owner.transform->scale);
+	mesh->mesh_position = { owner.transform->location };
+	mesh->mesh_rotation = { owner.transform->rotation };
+	mesh->mesh_scale = { owner.transform->scale };
 
 	mesh->Draw(albedo, normal_map, material);
 }
