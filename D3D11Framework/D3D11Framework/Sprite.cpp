@@ -48,7 +48,7 @@ Sprite::Sprite(float width, float height)
 	PushGPUBuffer(sizeof(sprite_normals), sizeof(float) * 3, sprite_normals);
 	PushGPUBuffer(sizeof(sprite_uvs), sizeof(float) * 2, sprite_uvs);
 
-	mesh_mvp_buffer = std::make_shared<GPUConstBuffer>(Engine::Singleton().GetDxDevice(), static_cast<unsigned int>(sizeof(Mvp)));
+	mesh_mvp_buffer = std::make_shared<GPUConstBuffer>(static_cast<unsigned int>(sizeof(Mvp)));
 
 	mesh_position = { 0.0f, 0.0f, 0.0f };
 	mesh_rotation = SimpleMath::Quaternion::Identity;
@@ -56,7 +56,7 @@ Sprite::Sprite(float width, float height)
 
 	sprite_buffer = {};
 
-	sprite_gpu_buffer = std::make_shared<GPUConstBuffer>(Engine::Singleton().GetDxDevice(), static_cast<unsigned int>(sizeof(SpriteBuffer)));
+	sprite_gpu_buffer = std::make_shared<GPUConstBuffer>(static_cast<unsigned int>(sizeof(SpriteBuffer)));
 }
 
 void Sprite::Draw()

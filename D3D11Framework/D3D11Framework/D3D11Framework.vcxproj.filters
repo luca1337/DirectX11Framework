@@ -97,9 +97,6 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Engine\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
@@ -235,6 +232,12 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Engine\Source</Filter>
     </ClCompile>
+    <ClCompile Include="DX11FWEngine.cpp">
+      <Filter>Engine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsSystem.cpp">
+      <Filter>Engine\Source\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adapter.h">
@@ -280,9 +283,6 @@
       <Filter>Engine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Engine\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
       <Filter>Engine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -446,6 +446,13 @@
     </ClInclude>
     <ClInclude Include="PhysicsMaterial.h">
       <Filter>Engine\Headers\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="DX11FWEngine.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSystem.h">
+      <Filter>Engine\Headers\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

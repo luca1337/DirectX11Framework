@@ -2,7 +2,8 @@
 
 #include "Transform.h"
 #include "Actor.h"
-#include "Graphics.h"
+#include "Time.h"
+
 
 unsigned int RotatorComponent::Type = 0;
 
@@ -17,5 +18,5 @@ void RotatorComponent::Tick(float delta_time)
 		return;
 
 	// just rotate the game object
-	owner.transform->Rotate(1.0f * Graphics::Singleton().delta_time, 0.0f, 1.0f * Graphics::Singleton().delta_time);
+	owner.transform->Rotate(1.0f * Time::GetDeltaTime(), 0.0f, 1.0f * Time::GetDeltaTime());
 }

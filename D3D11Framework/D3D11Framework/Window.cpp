@@ -3,6 +3,7 @@
 #include <Keyboard.h>
 #include "Core.h"
 #include "DX.h"
+#include "Engine.h"
 #include "Device.h"
 
 
@@ -30,7 +31,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-Window::Window(std::shared_ptr<Device> device, unsigned int width, unsigned int height, std::string title) : device(device), width(width), height(height), swap_chain(nullptr)
+Window::Window(unsigned int width, unsigned int height, std::string title) : width(width), height(height), swap_chain(nullptr)
 {
 	window_class_name = title + "_class";
 	win32_instance = GetModuleHandle(nullptr);
@@ -72,7 +73,7 @@ Window::Window(std::shared_ptr<Device> device, unsigned int width, unsigned int 
 	sc_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
 	if (DX::GetFactory()->CreateSwapChainForHwnd(
-		device->GetDXHandle(),
+		Engine::Singleton().GetDxDevice()->GetDXHandle(),
 		window,
 		&sc_desc,
 		nullptr,
@@ -85,9 +86,6 @@ Window::Window(std::shared_ptr<Device> device, unsigned int width, unsigned int 
 	// make the window visible (win32)
 	ShowWindow(window, SW_SHOW);
 
-	// TODO: implement dxMenu initialization
-	/*DxMenu& dx_menu = DxMenu::Get();
-	dx_menu.Initialize(window);*/
 }
 
 void Window::Present()
@@ -104,9 +102,4 @@ ID3D11Texture2D * Window::GetDXTexture()
 		throw std::exception("unable to get the swap chain texture");
 	}
 	return swap_chain_texture;
-}
-
-std::shared_ptr<Device> Window::GetDevice()
-{
-	return device;
 }

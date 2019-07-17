@@ -8,7 +8,7 @@ struct ID3D11Buffer;
 class GPUConstBuffer
 {
 public:
-	GPUConstBuffer(std::shared_ptr<Device> device, unsigned int size, const void* data = nullptr);
+	GPUConstBuffer(unsigned int size, const void* data = nullptr);
 
 	void BindInVertex(unsigned int gpu_register, void* data);
 
@@ -18,5 +18,4 @@ public:
 
 private:
 	ID3D11Buffer* buffer;
-	std::shared_ptr<Device> device;
 };

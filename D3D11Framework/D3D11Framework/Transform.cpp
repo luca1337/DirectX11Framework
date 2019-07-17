@@ -1,7 +1,5 @@
 #include "Transform.h"
 
-#include "Graphics.h"
-
 unsigned int Transform::Type = 0;
 
 Transform::Transform()

@@ -1,6 +1,5 @@
 #include "SkyDome.h"
 
-#include "Graphics.h"
 #include "Device.h"
 #include "Engine.h"
 #include "Mesh.h"
@@ -8,6 +7,7 @@
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "ShaderManager.h"
+#include "GraphicsSystem.h"
 
 Skydome::Skydome(const std::string& skydome_file)
 {
@@ -41,9 +41,9 @@ void Skydome::Render()
 	Engine::Singleton().GetDxDevice()->TurnOnZBuffer();
 
 	skydome_mesh->mesh_position = {
-		Graphics::Singleton().GetMainCamera()->GetPosition().x,
-		Graphics::Singleton().GetMainCamera()->GetPosition().y,
-		Graphics::Singleton().GetMainCamera()->GetPosition().z
+		GraphicSystem::Get().GetMainCamera()->GetPosition().x,
+		GraphicSystem::Get().GetMainCamera()->GetPosition().y,
+		GraphicSystem::Get().GetMainCamera()->GetPosition().z
 	};
 
 	basic_vs->Bind();

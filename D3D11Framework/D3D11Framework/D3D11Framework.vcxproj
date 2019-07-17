@@ -160,12 +160,13 @@
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="DepthTarget.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="DX11FWEngine.cpp" />
     <ClCompile Include="DxMenu.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GeometryShader.cpp" />
     <ClCompile Include="GPUBuffer.cpp" />
     <ClCompile Include="GPUConstBuffer.cpp" />
-    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="DX.h" />
     <ClInclude Include="DX11FWAllocator.h" />
     <ClInclude Include="DX11FWDispatcher.h" />
+    <ClInclude Include="DX11FWEngine.h" />
     <ClInclude Include="DX11FWErrorCallback.h" />
     <ClInclude Include="DX11FWShaderFilter.h" />
     <ClInclude Include="DX11FWSimulationEvent.h" />
@@ -230,7 +232,7 @@
     <ClInclude Include="GeometryShader.h" />
     <ClInclude Include="GPUBuffer.h" />
     <ClInclude Include="GPUConstBuffer.h" />
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />

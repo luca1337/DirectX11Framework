@@ -3,7 +3,7 @@
 #include "Engine.h"
 #include "Device.h"
 #include "GPUConstBuffer.h"
-#include "Graphics.h"
+#include "GraphicsSystem.h"
 #include "Camera.h"
 #include "ShaderObject.h"
 #include "Texture.h"
@@ -36,6 +36,6 @@ void MeshShape::UpdateMeshMatrix()
 	scale = DirectX::XMMatrixScaling(mesh_scale.x, mesh_scale.y, mesh_scale.z);
 
 	mesh_mvp.model = scale * rotation * translation;
-	mesh_mvp.view = Graphics::Singleton().GetMainCamera()->GetViewMatrix();
-	mesh_mvp.projection = Graphics::Singleton().GetMainCamera()->GetProjectionMatrix();
+	mesh_mvp.view = GraphicSystem::Get().GetMainCamera()->GetViewMatrix();
+	mesh_mvp.projection = GraphicSystem::Get().GetMainCamera()->GetProjectionMatrix();
 }

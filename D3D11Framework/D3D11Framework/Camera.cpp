@@ -1,6 +1,5 @@
 #include "Camera.h"
 
-#include "Graphics.h"
 #include "Time.h"
 
 Camera::Camera() : view(SimpleMath::Matrix()), projection(SimpleMath::Matrix())

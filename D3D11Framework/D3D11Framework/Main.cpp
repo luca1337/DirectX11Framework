@@ -1,61 +1,29 @@
-#include "ShaderObject.h"
-#include "Mesh.h"
 #include "Light.h"
-#include "Transform.h"
-#include "GPUConstBuffer.h"
-#include "Camera.h"
-#include "ShaderObject.h"
-#include "Texture.h"
-#include <time.h>
-#include "SkyDome.h"
-#include "ShaderManager.h"
-#include "Material.h"
-
-#include "Engine.h"
-#include "Graphics.h"
-#include "Utils.h"
-
-#include <Keyboard.h>
-
-#include "DxMenu.h"
-
-#include "Player.h"
-#include "World.h"
-
-#include "RotatorComponent.h"
-
-#include "RigidBody.h"
-#include "Physics.h"
-
 #include "TextureManager.h"
-
+#include "GraphicsSystem.h"
+#include "Engine.h"
+#include "World.h"
 #include "BoxCollider.h"
+#include "RigidBody.h"
 #include "SphereCollider.h"
-
-#include "Cube.h"
+#include "Material.h"
 #include "Sphere.h"
-#include "Enemy.h"
+#include "MeshRenderer.h"
+#include "Transform.h"
+#include "Player.h"
+#include "Actor.h"
+#include "SkyDome.h"
+#include "DX11FWEngine.h"
+#include "Core.h"
+#include <SimpleMath.h>
 
-#include "Time.h"
-
-#include <SpriteBatch.h>
-
-#include "Sprite.h"
-
-#define COLLIDERS
+using namespace DirectX;
 
 int main(int argc, char** argv)
 {
-	// Init engine
-	Engine& engine = Engine::Singleton();
-
-	// init graphics pipeline
-	Graphics& graphics = Graphics::Singleton();
-	graphics.Initialize("D3DFramework", 800, 800, 800 / 800);
-
-	// init physics pipeline
-	Physics& physics = Physics::Get();
-	physics.InitPhysix();
+	// Init GameEngine
+	DX11FWEngine& dx11fw_engine = DX11FWEngine::Get();
+	dx11fw_engine.Initialize("DX11Engine", 800, 800, 1);
 
 	// Setup some light
 	Light directional_light = {};
@@ -92,17 +60,13 @@ int main(int argc, char** argv)
 	point_light02.SetIntensity(2.0f);
 	point_light02.SetActive(true);
 
-	graphics.AddLight(directional_light);
-	graphics.AddLight(point_light00);
-	graphics.AddLight(point_light01);
+	GraphicSystem::Get().AddSceneLight(directional_light);
+	GraphicSystem::Get().AddSceneLight(point_light00);
+	GraphicSystem::Get().AddSceneLight(point_light01);
 
-	engine.RegisterComponent<Transform>();
-	engine.RegisterComponent<RigidBody>();
-	engine.RegisterComponent<MeshRenderer>();
-	engine.RegisterComponent<RotatorComponent>();
-
-	// Create the world
-	World& world = World::Get();
+	Engine::Singleton().RegisterComponent<Transform>();
+	Engine::Singleton().RegisterComponent<RigidBody>();
+	Engine::Singleton().RegisterComponent<MeshRenderer>();
 
 	// -- CREATE AND ADD IN MEMORY SOME MANAGED TEXTURES -- //
 	TextureManager::AddTexture("Assets/Textures/Abstract_albedo.jpg", "abstract_a");
@@ -125,8 +89,6 @@ int main(int argc, char** argv)
 
 	TextureManager::AddTexture("Assets/Textures/megaj.png", "jump");
 	TextureManager::AddTexture("Assets/Textures/BoltPW.png", "bolt");
-
-	// -End
 
 	// Skydome
 	std::shared_ptr<Skydome> skydome = std::make_shared<Skydome>("Assets/Models/sphere.txt");
@@ -159,6 +121,8 @@ int main(int argc, char** argv)
 	auto rigid_body = std::make_shared<RigidBody>(*player00, 1.0f, eRigidBodyType::STATIC);
 	rigid_body->SetUseGravity(true);
 	player00->AddComponent<RigidBody>(rigid_body);
+
+	World& world = World::Get();
 
 	// spawn first actor
 	world.SpawnActor(player00);
@@ -338,44 +302,7 @@ int main(int argc, char** argv)
 	world.SpawnActor(sphere06);
 	// - End
 
-	//2D sprite on 3D world space
-
-	auto tex = std::make_shared<Texture>("Assets/Textures/grid.png");
-
-	Sprite sprite = Sprite();
-
-	// Keyboard tracking
-	std::unique_ptr<DirectX::Keyboard> keyboard = std::make_unique<DirectX::Keyboard>();
-	DirectX::Keyboard::KeyboardStateTracker tracker;
-
-	for (;;)
-	{
-		// Keyboard events
-		auto state = keyboard->GetState();
-		tracker.Update(state);
-
-		MSG msg;
-		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
-		graphics.Clear();
-
-		skydome->Render();
-
-		sprite.DrawTextured(tex);
-
-		if (state.IsKeyDown(DirectX::Keyboard::Space))
-		{
-			sphere06_rigidbody->AddForce(SimpleMath::Vector3(0.0f, 0.0f, 40.0f), eForceMode::eIMPULSE);
-		}
-
-		graphics.GetMainCamera()->Update(state);
-
-		graphics.Present();
-	}
+	dx11fw_engine.Run();
 
 	return 0;
 }

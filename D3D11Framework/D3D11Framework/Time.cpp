@@ -1,8 +1,8 @@
 #include "Time.h"
 
-#include "Graphics.h"
+#include "GraphicsSystem.h"
 
 float Time::GetDeltaTime()
 {
-	return Graphics::Singleton().delta_time;
+	return GraphicSystem::Get().delta_time;
 }

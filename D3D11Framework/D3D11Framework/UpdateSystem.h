@@ -5,6 +5,8 @@
 class UpdateSystem : public ISystem
 {
 public:
+	UpdateSystem();
+
 	virtual void Update(float delta_time) override;
 
 };
