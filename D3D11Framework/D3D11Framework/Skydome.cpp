@@ -41,9 +41,9 @@ void Skydome::Render()
 	Engine::Singleton().GetDxDevice()->TurnOnZBuffer();
 
 	skydome_mesh->mesh_position = {
-		GraphicSystem::Get().GetMainCamera()->GetPosition().x,
-		GraphicSystem::Get().GetMainCamera()->GetPosition().y,
-		GraphicSystem::Get().GetMainCamera()->GetPosition().z
+		GraphicSystem::Get()->GetMainCamera()->GetPosition().x,
+		GraphicSystem::Get()->GetMainCamera()->GetPosition().y,
+		GraphicSystem::Get()->GetMainCamera()->GetPosition().z
 	};
 
 	basic_vs->Bind();

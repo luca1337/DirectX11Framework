@@ -17,19 +17,18 @@
 DWORD GraphicSystem::previous_time = 0;
 float GraphicSystem::max_time_steps = 0.0f;
 
-GraphicSystem& GraphicSystem::Get()
+std::shared_ptr<GraphicSystem> GraphicSystem::Get()
 {
-	static GraphicSystem* gs = nullptr;
+	static std::shared_ptr<GraphicSystem> gs;
 
 	if (!gs)
-		gs = new GraphicSystem();
+		gs = std::make_shared<GraphicSystem>();
 
-	return *gs;
+	return gs;
 }
 
 void GraphicSystem::Update(float delta_time)
 {
-	delta_time = CalculateDeltaTime();
 	window->Present();
 }
 
@@ -82,7 +81,7 @@ std::shared_ptr<Camera> GraphicSystem::GetMainCamera() const
 	return main_camera;
 }
 
-void GraphicSystem::AddSceneLight(Light & light)
+void GraphicSystem::AddSceneLight(Light& light)
 {
 	lights.push_back(light);
 }
@@ -90,10 +89,10 @@ void GraphicSystem::AddSceneLight(Light & light)
 GraphicSystem::GraphicSystem()
 {
 	// do not change this!!!
-	update_offset = 1;
+	update_offset = 2;
 
-	lights_buffer = std::make_unique<GPUConstBuffer>(static_cast<UINT>(sizeof(Light)) * max_lights);
-	lights_properties_buffer = std::make_unique<GPUConstBuffer>(static_cast<UINT>(sizeof(LightProperties)));
+	lights_buffer = std::make_shared<GPUConstBuffer>(static_cast<UINT>(sizeof(Light)) * max_lights);
+	lights_properties_buffer = std::make_shared<GPUConstBuffer>(static_cast<UINT>(sizeof(LightProperties)));
 
 	// Add some shaders
 	ShaderManager::CreateAndAddVertexShaderResource(ShaderLayoutDesc::Vertex, "skydome_vertex", skymap_vs, sizeof(skymap_vs), ShaderLayoutDesc::v_layout_size);

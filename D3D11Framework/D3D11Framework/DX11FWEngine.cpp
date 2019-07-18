@@ -4,6 +4,7 @@
 #include "GraphicsSystem.h"
 #include "UpdateSystem.h"
 #include "PhysicsSystem.h"
+#include "ISystem.h"
 #include "World.h"
 #include "Camera.h"
 
@@ -11,14 +12,13 @@
 
 DX11FWEngine::DX11FWEngine()
 {
-
 }
 
 DX11FWEngine& DX11FWEngine::Get()
 {
 	static DX11FWEngine* dx11fw_engine = nullptr;
 
-	if (dx11fw_engine)
+	if (!dx11fw_engine)
 		dx11fw_engine = new DX11FWEngine();
 
 	return *dx11fw_engine;
@@ -30,19 +30,19 @@ void DX11FWEngine::Initialize(const std::string& window_title, unsigned int widt
 	Engine& engine = Engine::Singleton();
 
 	// Init now all systems such as graphics, physics, update etc..
-	GraphicSystem& gs = GraphicSystem::Get();
-	PhysicsSystem& ps = PhysicsSystem::Get();
-	UpdateSystem us = UpdateSystem();
+	auto gs = GraphicSystem::Get();
+	auto ps = PhysicsSystem::Get();
+	auto us = std::make_shared<UpdateSystem>();
 
-	gs.Init(window_title, width, height, aspect_ratio);
-	ps.Init();
+	gs->Init(window_title, width, height, aspect_ratio);
+	ps->Init();
 
 	// put all them together
-	AddSystem(&gs);
-	AddSystem(&ps);
-	AddSystem(&us);
+	AddSystem(gs);
+	AddSystem(ps);
+	AddSystem(us);
 
-	// Init the world that will contains all actors
+	// Init the world that will contains all actors, components
 	World& world = World::Get();
 
 	// Init keyboard events
@@ -69,20 +69,21 @@ void DX11FWEngine::Run()
 		}
 
 		// Clear screen
-		GraphicSystem::Get().Clear({0.0f, 0.0f, 0.0f, 0.0f});
+		GraphicSystem::Get()->Clear({0.0f, 0.0f, 1.0f, 0.0f});
 
 		// Update camera
-		GraphicSystem::Get().GetMainCamera()->Update(keyboard->GetState());
+		GraphicSystem::Get()->GetMainCamera()->Update(keyboard->GetState());
 
+		GraphicSystem::Get()->delta_time = GraphicSystem::Get()->CalculateDeltaTime();
 		// Update all systems such as physics, graphics, update of actors etc..
 		for (auto system: systems)
 		{
-			system->Update(GraphicSystem::Get().delta_time);
+			system->Update(GraphicSystem::Get()->delta_time);
 		}
 	}
 }
 
-void DX11FWEngine::AddSystem(ISystem* system)
+void DX11FWEngine::AddSystem(std::shared_ptr<ISystem> system)
 {
 	systems.push_back(system);
 }
@@ -100,5 +101,10 @@ void DX11FWEngine::SortSystems()
 				systems[i] = temp;
 			}
 		}
+	}
+
+	for (int i = 0; i < systems.size(); i++)
+	{
+		std::cout << "sorted: " << systems[i]->update_offset << std::endl;
 	}
 }

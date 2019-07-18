@@ -1,20 +1,31 @@
 #include "PhysicsSystem.h"
 
-PhysicsSystem& PhysicsSystem::Get()
+#include "Physics.h"
+
+std::shared_ptr<PhysicsSystem> PhysicsSystem::Get()
 {
-	static PhysicsSystem* ps = nullptr;
+	static std::shared_ptr<PhysicsSystem> ps = nullptr;
 
 	if (!ps)
-		ps = new PhysicsSystem();
+		ps = std::make_shared<PhysicsSystem>();
 
-	return *ps;
+	return ps;
 }
 
 void PhysicsSystem::Update(float delta_time)
 {
+	Physics::Get().UpdatePhysx(delta_time);
 }
 
 void PhysicsSystem::Init()
 {
 	update_offset = 0;
+
+	Physics& px = Physics::Get();
+	px.InitPhysix();
+}
+
+PhysicsSystem::PhysicsSystem()
+{
+
 }

@@ -35,10 +35,10 @@ Mesh::Mesh(std::string file_path) : light_properties{}
 void Mesh::Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal_map, std::shared_ptr<Material> material)
 {
 	// bind up camera and ambient light but only once!!!! they must not be changed
-	light_properties.eye_position = GraphicSystem::Get().GetMainCamera()->GetPosition();
+	light_properties.eye_position = GraphicSystem::Get()->GetMainCamera()->GetPosition();
 	light_properties.global_ambient = SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 1.0f);
 
-	GraphicSystem::Get().lights_properties_buffer->BindInPixel(2, &light_properties, 1);
+	GraphicSystem::Get()->lights_properties_buffer->BindInPixel(2, &light_properties, 1);
 
 	if (material)
 		material_buffer->BindInPixel(3, material.get(), 1);
@@ -47,7 +47,7 @@ void Mesh::Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal
 
 	///// HERE WE NEED TO BIND LIGHT BUFFER /////
 
-	GraphicSystem::Get().lights_buffer->BindInPixel(1, GraphicSystem::Get().lights.data(), 1);
+	GraphicSystem::Get()->lights_buffer->BindInPixel(1, GraphicSystem::Get()->lights.data(), 1);
 
 	if (albedo)
 		albedo->GetShaderObject()->Bind(0);
@@ -67,14 +67,14 @@ void Mesh::Draw(std::shared_ptr<Texture> albedo, std::shared_ptr<Texture> normal
 void Mesh::Draw()
 {
 	// bind up camera and ambient light but only once!!!! they must not be changed
-	light_properties.eye_position = GraphicSystem::Get().GetMainCamera()->GetPosition();
+	light_properties.eye_position = GraphicSystem::Get()->GetMainCamera()->GetPosition();
 	light_properties.global_ambient = SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 1.0f);
 
-	GraphicSystem::Get().lights_properties_buffer->BindInPixel(2, &light_properties, 1);
+	GraphicSystem::Get()->lights_properties_buffer->BindInPixel(2, &light_properties, 1);
 
 	///// HERE WE NEED TO BIND LIGHT BUFFER /////
 
-	GraphicSystem::Get().lights_buffer->BindInPixel(1, GraphicSystem::Get().lights.data(), 1);
+	GraphicSystem::Get()->lights_buffer->BindInPixel(1, GraphicSystem::Get()->lights.data(), 1);
 
 	MeshShape::DrawMesh(vertices_count);
 }

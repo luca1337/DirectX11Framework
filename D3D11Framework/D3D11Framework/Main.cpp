@@ -60,9 +60,9 @@ int main(int argc, char** argv)
 	point_light02.SetIntensity(2.0f);
 	point_light02.SetActive(true);
 
-	GraphicSystem::Get().AddSceneLight(directional_light);
-	GraphicSystem::Get().AddSceneLight(point_light00);
-	GraphicSystem::Get().AddSceneLight(point_light01);
+	GraphicSystem::Get()->AddSceneLight(directional_light);
+	GraphicSystem::Get()->AddSceneLight(point_light00);
+	GraphicSystem::Get()->AddSceneLight(point_light01);
 
 	Engine::Singleton().RegisterComponent<Transform>();
 	Engine::Singleton().RegisterComponent<RigidBody>();
@@ -300,7 +300,7 @@ int main(int argc, char** argv)
 	render_component06->SetNormal("metal_raw_n");
 	render_component06->AssignMaterial(textured_chrome_material);
 	world.SpawnActor(sphere06);
-	// - End
+	// - End*/
 
 	dx11fw_engine.Run();
 

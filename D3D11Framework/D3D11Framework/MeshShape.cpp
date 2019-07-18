@@ -36,6 +36,6 @@ void MeshShape::UpdateMeshMatrix()
 	scale = DirectX::XMMatrixScaling(mesh_scale.x, mesh_scale.y, mesh_scale.z);
 
 	mesh_mvp.model = scale * rotation * translation;
-	mesh_mvp.view = GraphicSystem::Get().GetMainCamera()->GetViewMatrix();
-	mesh_mvp.projection = GraphicSystem::Get().GetMainCamera()->GetProjectionMatrix();
+	mesh_mvp.view = GraphicSystem::Get()->GetMainCamera()->GetViewMatrix();
+	mesh_mvp.projection = GraphicSystem::Get()->GetMainCamera()->GetProjectionMatrix();
 }

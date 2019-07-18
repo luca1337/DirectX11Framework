@@ -1,8 +1,9 @@
 #pragma once
 
 #include "ISystem.h"
+#include <memory>
 
-class UpdateSystem : public ISystem
+class UpdateSystem final : public ISystem
 {
 public:
 	UpdateSystem();

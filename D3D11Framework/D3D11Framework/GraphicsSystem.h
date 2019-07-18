@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISystem.h"
+#include "Light.h"
 
 #include <vector>
 #include <string>
@@ -13,12 +14,11 @@ class RenderTarget;
 class DepthTarget;
 class Camera;
 class GPUConstBuffer;
-struct Light;
 
-class GraphicSystem : public ISystem
+class GraphicSystem final : public ISystem
 {
 public:
-	static GraphicSystem& Get();
+	static std::shared_ptr<GraphicSystem> Get();
 
 	virtual void Update(float delta_time) override;
 
@@ -38,12 +38,12 @@ public:
 
 	const unsigned long max_lights = 10;
 
-	std::unique_ptr<GPUConstBuffer> lights_buffer;
-	std::unique_ptr<GPUConstBuffer> lights_properties_buffer;
+	std::shared_ptr<GPUConstBuffer> lights_buffer;
+	std::shared_ptr<GPUConstBuffer> lights_properties_buffer;
 	std::vector<Light>				lights;
 
-private:
 	GraphicSystem();
+private:
 
 	std::shared_ptr<Window>			window;
 	std::shared_ptr<Texture>		swap_chain_texture;

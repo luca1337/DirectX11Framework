@@ -4,5 +4,5 @@
 
 float Time::GetDeltaTime()
 {
-	return GraphicSystem::Get().delta_time;
+	return GraphicSystem::Get()->delta_time;
 }
