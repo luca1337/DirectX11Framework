@@ -5,7 +5,6 @@ SamplerState texture_sampler : register(s0);
 cbuffer sprite_buffer : register(b0)
 {
     float4 color;
-    int use_texture;
 };
 
 struct ps_in
@@ -24,10 +23,8 @@ ps_out main(ps_in IN)
 {
     ps_out OUT;
 
-    if (use_texture)
-        OUT.out_pixel = albedo_texture.Sample(texture_sampler, float2(IN.world_uv.x, 1 - IN.world_uv.y));
-    else
-        OUT.out_pixel = color;
+    OUT.out_pixel = albedo_texture.Sample(texture_sampler, float2(IN.world_uv.x, 1 - IN.world_uv.y));
+    OUT.out_pixel *= color;
 
     return OUT;
 }

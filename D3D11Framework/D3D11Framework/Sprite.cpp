@@ -55,27 +55,13 @@ Sprite::Sprite(float width, float height)
 	mesh_scale = { 1.0f * width, 1.0f * height, 1.0f };
 
 	sprite_buffer = {};
+	
+	in_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	sprite_gpu_buffer = std::make_shared<GPUConstBuffer>(static_cast<unsigned int>(sizeof(SpriteBuffer)));
 }
 
-void Sprite::Draw()
-{
-	ShaderManager::GetVertexShaderResourceFromMemory("sprite_vertex")->Bind();
-	ShaderManager::GetPixelShaderResourceFromMemory("sprite_pixel")->Bind();
-
-	sprite_buffer.color = {1.0f, 1.0f, 0.0f, 1.0f};
-	sprite_buffer.use_texture = 0;
-
-	sprite_gpu_buffer->BindInPixel(0, &sprite_buffer, 1);
-
-	MeshShape::DrawMesh(vertices_count);
-
-	ShaderManager::GetVertexShaderResourceFromMemory("basic_vertex")->Bind();
-	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();
-}
-
-void Sprite::DrawTextured(std::shared_ptr<Texture> texture)
+void Sprite::Draw(std::shared_ptr<Texture> texture)
 {
 	Engine::Singleton().GetDxDevice()->SetBlendMode(BlendMode::eTRANSPARENT);
 
@@ -85,8 +71,7 @@ void Sprite::DrawTextured(std::shared_ptr<Texture> texture)
 	if (texture)
 		texture->GetShaderObject()->Bind(0);
 
-	sprite_buffer.use_texture = 1;
-
+	sprite_buffer.color = in_color;
 	sprite_gpu_buffer->BindInPixel(0, &sprite_buffer, 1);
 
 	MeshShape::DrawMesh(vertices_count);

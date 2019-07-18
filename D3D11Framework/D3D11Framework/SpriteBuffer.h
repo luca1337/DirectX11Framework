@@ -5,8 +5,5 @@
 
 struct SpriteBuffer
 {
-	DirectX::SimpleMath::Vector3 color;
-	float _pad0;
-	BOOL use_texture;
-	float _pad1[3];
+	DirectX::SimpleMath::Vector4 color;
 };

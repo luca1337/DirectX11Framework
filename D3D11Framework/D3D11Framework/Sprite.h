@@ -13,8 +13,7 @@ class Sprite : public MeshShape
 public:
 	Sprite(float width = 1.0f, float height = 1.0f);
 
-	void Draw();
-	void DrawTextured(std::shared_ptr<Texture> texture);
+	void Draw(std::shared_ptr<Texture> texture);
 
 	unsigned int vertices_count;
 
@@ -23,4 +22,7 @@ private:
 	std::shared_ptr<GPUConstBuffer> sprite_gpu_buffer;
 	float width;
 	float height;
+	DirectX::SimpleMath::Vector4 in_color;
+
+	friend class SpriteRenderer;
 };

@@ -14,6 +14,9 @@
 #include "Actor.h"
 #include "SkyDome.h"
 #include "DX11FWEngine.h"
+#include "Sprite.h"
+#include "SpriteRenderer.h"
+#include "Quad.h"
 #include "Core.h"
 #include <SimpleMath.h>
 
@@ -23,7 +26,7 @@ int main(int argc, char** argv)
 {
 	// Init GameEngine
 	DX11FWEngine& dx11fw_engine = DX11FWEngine::Get();
-	dx11fw_engine.Initialize("DX11Engine", 800, 800, 1);
+	dx11fw_engine.Initialize("DX11Engine", 1024, 1024, 1);
 
 	// Setup some light
 	Light directional_light = {};
@@ -87,7 +90,7 @@ int main(int argc, char** argv)
 	TextureManager::AddTexture("Assets/Textures/marble_albedo.jpg", "marble_a");
 	TextureManager::AddTexture("Assets/Textures/marble_normal.jpg", "marble_n");
 
-	TextureManager::AddTexture("Assets/Textures/megaj.png", "jump");
+	TextureManager::AddTexture("Assets/Textures/grid.png", "grid");
 	TextureManager::AddTexture("Assets/Textures/BoltPW.png", "bolt");
 
 	// Skydome
@@ -281,7 +284,7 @@ int main(int argc, char** argv)
 	}
 	// - End
 
-	// Create a physics ball so that we can shoot against other balls
+	// Create a physical sphere so that we can shoot against other spheres with a rigidbody
 
 	// - Sphere 7
 	auto sphere06 = std::make_shared<Sphere>();
@@ -301,6 +304,12 @@ int main(int argc, char** argv)
 	render_component06->AssignMaterial(textured_chrome_material);
 	world.SpawnActor(sphere06);
 	// - End*/
+
+	// 2D Quad
+	auto quad00 = std::make_shared<Quad>(5.0f, 5.0f);
+	quad00->GetComponent<SpriteRenderer>()->SetTexture("grid");
+
+	world.SpawnActor(quad00);
 
 	dx11fw_engine.Run();
 

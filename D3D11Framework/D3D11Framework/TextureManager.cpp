@@ -21,13 +21,20 @@ std::shared_ptr<Texture> TextureManager::GetTexture(const std::string name)
 {
 	std::shared_ptr<Texture> texture;
 
-	for (auto&[key, val] : textures)
+	try
 	{
-		if (key == name)
+		for (auto&[key, val] : textures)
 		{
-			texture = textures.at(name);
-			break;
+			if (key == name)
+			{
+				texture = textures.at(name);
+				break;
+			}
 		}
+	}
+	catch (const std::exception&)
+	{
+		std::cerr << "could not find give texture, try adding it first with 'AddTexture'" << std::endl;
 	}
 
 	return texture;

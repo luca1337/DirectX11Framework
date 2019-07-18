@@ -80,6 +80,9 @@
     <Filter Include="Engine\Headers\NVPhysx">
       <UniqueIdentifier>{237b8406-e364-4854-9647-249be9836e07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Headers\Shapes\2D">
+      <UniqueIdentifier>{b4254b2d-1685-4fb8-b831-72c948d711de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -237,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
       <Filter>Engine\Source\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Engine\Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -453,6 +459,12 @@
     </ClInclude>
     <ClInclude Include="GraphicsSystem.h">
       <Filter>Engine\Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Engine\Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>Engine\Headers\Shapes\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
