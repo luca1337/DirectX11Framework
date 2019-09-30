@@ -466,6 +466,9 @@
     <ClInclude Include="Quad.h">
       <Filter>Engine\Headers\Shapes\2D</Filter>
     </ClInclude>
+    <ClInclude Include="RenderMode.h">
+      <Filter>Engine\Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="cubemap_pixel_hlsl.hlsl">

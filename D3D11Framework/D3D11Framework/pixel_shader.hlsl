@@ -55,6 +55,11 @@ cbuffer cMaterial : register(b3)
     Material material;
 };
 
+cbuffer csprite_color : register(b4)
+{
+    float4 color;
+}
+
 struct ps_in
 {
     float4 out_position     : SV_Position;
@@ -221,6 +226,6 @@ ps_out main(ps_in IN)
     }
 
     OUT.pixel_color = (emissive + ambient + diffuse + specular) * albedo_color * result.NormalMapping;
-    
+
     return OUT;
 }

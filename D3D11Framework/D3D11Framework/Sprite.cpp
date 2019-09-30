@@ -61,12 +61,12 @@ Sprite::Sprite(float width, float height)
 	sprite_gpu_buffer = std::make_shared<GPUConstBuffer>(static_cast<unsigned int>(sizeof(SpriteBuffer)));
 }
 
-void Sprite::Draw(std::shared_ptr<Texture> texture)
+void Sprite::Draw(std::shared_ptr<Texture> texture, std::shared_ptr<Material> material)
 {
 	Engine::Singleton().GetDxDevice()->SetBlendMode(BlendMode::eTRANSPARENT);
 
-	ShaderManager::GetVertexShaderResourceFromMemory("sprite_vertex")->Bind();
-	ShaderManager::GetPixelShaderResourceFromMemory("sprite_pixel")->Bind();
+	/*ShaderManager::GetVertexShaderResourceFromMemory("sprite_vertex")->Bind();
+	ShaderManager::GetPixelShaderResourceFromMemory("sprite_pixel")->Bind();*/
 
 	if (texture)
 		texture->GetShaderObject()->Bind(0);
@@ -79,8 +79,8 @@ void Sprite::Draw(std::shared_ptr<Texture> texture)
 	if (texture)
 		texture->GetShaderObject()->Unbind(0);
 
-	ShaderManager::GetVertexShaderResourceFromMemory("basic_vertex")->Bind();
-	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();
+	/*ShaderManager::GetVertexShaderResourceFromMemory("basic_vertex")->Bind();
+	ShaderManager::GetPixelShaderResourceFromMemory("basic_pixel")->Bind();*/
 
 	Engine::Singleton().GetDxDevice()->SetBlendMode(BlendMode::eOPAQUE);
 }

@@ -17,4 +17,7 @@ struct Utils
 	static std::shared_ptr<Material> green_material;
 	static std::shared_ptr<Material> blue_material;
 	static std::shared_ptr<Material> white_material;
+
+	// 2D materials
+	static std::shared_ptr<Material> default_sprite_material;
 };

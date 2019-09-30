@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 {
 	// Init GameEngine
 	DX11FWEngine& dx11fw_engine = DX11FWEngine::Get();
-	dx11fw_engine.Initialize("DX11Engine", 1024, 1024, 1);
+	dx11fw_engine.Initialize("DX11Engine", 800, 800, 1);
 
 	// Setup some light
 	Light directional_light = {};

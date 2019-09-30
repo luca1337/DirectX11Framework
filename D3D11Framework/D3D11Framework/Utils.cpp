@@ -57,3 +57,14 @@ std::shared_ptr<Material> Utils::white_material = std::make_shared<Material>
 	false,
 	false
 	);
+
+std::shared_ptr<Material> Utils::default_sprite_material = std::make_shared<Material>
+(
+	SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 1.0f),
+	SimpleMath::Vector4(0.1f, 0.1f, 0.1f, 1.0f),
+	SimpleMath::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+	SimpleMath::Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+	32.0f,
+	false,
+	false
+	);

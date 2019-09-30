@@ -7,13 +7,14 @@
 #include <memory>
 
 class Texture;
+struct Material;
 
 class Sprite : public MeshShape
 {
 public:
 	Sprite(float width = 1.0f, float height = 1.0f);
 
-	void Draw(std::shared_ptr<Texture> texture);
+	void Draw(std::shared_ptr<Texture> texture, std::shared_ptr<Material> material = nullptr);
 
 	unsigned int vertices_count;
 

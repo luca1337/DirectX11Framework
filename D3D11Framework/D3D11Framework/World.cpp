@@ -23,6 +23,11 @@ void World::Tick(float delta_time)
 {
 	for (auto& actor : actors)
 	{
+		//TODO: sort actors before we draw them, the render order is the following:
+
+		//1). Draw all opaque objects (normal objects).
+		//2). Draw all transparent and cut-off objects with alpha.
+
 		actor->Tick(delta_time);
 
 		for (auto& comp : actor->Components)
